@@ -12,7 +12,7 @@ function Modal({title, type, elements, animation, Id, Class, onSubmit})
   const [data, SetData] = React.useState({});
   const fields = SerializeData(title, type, elements, animation, Id, Class, onSubmit); 
 
-  function handelInputChange(name, value)
+  function handleInputChange(name, value)
   {
     SetData(prev => ({...prev, [name]: value}))
   }
@@ -22,7 +22,7 @@ function Modal({title, type, elements, animation, Id, Class, onSubmit})
     return null;
   }
 
-  //console.log(fields);
+  console.log(fields);
   //console.log(elementsData);
   return (
     <>
@@ -36,14 +36,14 @@ function Modal({title, type, elements, animation, Id, Class, onSubmit})
           return(
             <div className="grouped-elements" key={field.id || i} >
               {Array.from({ length: field.amount }, (_, j) => {
-                  const name = Array.isArray(field.name) ? field.name[j] : field.name
+                  const name = field.name[j]
                   const Tagprobs = {
                     className: elementDef["default-class"],
                     role: elementDef.aria.role,
-                    ...(elementDef["supports-placeholder"] && ({placeholder: Array.isArray(field.placeholder) ? field.placeholder[j] : field.placeholder })),
+                    ...(elementDef["supports-placeholder"] && ({placeholder: field.placeholder[j]})),
                     ...(elementDef["tag-type"] && ({ type: elementDef["tag-type"] }))
                   }
-                  return <Tag key={j} {...Tagprobs} onChange={(e) => handelInputChange(name, e.target.value)} />
+                  return <Tag key={j} {...Tagprobs} onChange={(e) => handleInputChange(name, e.target.value)} />
               })
               }
               
@@ -68,14 +68,14 @@ function SerializeData(title, type, elements, animation, Id, Class, onSubmit)
 
     const normalizedElements = elements.map(ele => ({...defaultElement, ...ele}));
     const eleValidator =  validateElements(normalizedElements);
-
+    
     if(eleValidator.status !== 1)
     {
       console.error(eleValidator.error)
       return null
     }
 
-    return normalizedElements; 
+    return normalizeElements(normalizedElements); 
 }
 function ValidateInput(title, type, elements = [], animation, Id, Class, onSubmit)
 {
@@ -125,13 +125,13 @@ function validateElements(elements)
     }
     else
     {
-      if(typeof element.placeholder !== "string")
+      if(!(typeof element.placeholder === "string" || (Array.isArray(element.placeholder) && element.placeholder.length === 1)))
       {
-        return {status: -1, error: "Element placeholder should be provided as string when the amount is set to 1."};
+        return {status: -1, error: "Element placeholder should be a string or an array of length 1."};
       }
-      if(typeof element.name !== "string")
+      if(!(typeof element.name === "string" || (Array.isArray(element.name) && element.name.length === 1)))
       {
-        return {status: -1, error: "Element name should be provided as string when the amount is set to 1."};
+        return {status: -1, error: "Element name should be a string or an array of length 1."};
       }
     }
   };
@@ -139,4 +139,12 @@ function validateElements(elements)
   return  {status: 1};
 }
 
+function normalizeElements(elements)
+{
+  return elements.map(ele => ({
+    ...ele,
+    placeholder: typeof ele.placeholder === "string" ? [ele.placeholder] : ele.placeholder,
+    name: typeof ele.name === "string" ? [ele.name] : ele.name
+  }));
+}
 export default Modal;

@@ -1,18 +1,21 @@
 import elementsData from "./dependencies/elements.json"
+import themesData from "./dependencies/themes.json"
 import SelectEngine from "../select/SelectEngine";
 import "./dependencies/style/elements.css"
+import "./dependencies/style/themes.css"
 import React from "react";
 
+const vaildThemes = themesData.map(e => e.theme);
 const defaultElement = {type: "!", placeholder: ["!"], id: "!",   className: "!", amount: 1 };
 const supportedTypes = ["text", "select", "email", "password", "search", "url", "tel"]
 const componentsMap = {"SelectEngine": SelectEngine};
 
-function Modal({title, type, elements, animation, Id, Class, onSubmit})
+function Modal({title, type, elements, theme = "Singularity", animation, Id, Class, onSubmit})
 {
   const [data, SetData] = React.useState({});
-  const fields = SerializeData(title, type, elements, animation, Id, Class, onSubmit); 
+  const fields = SerializeData(title, type, elements, theme, animation, Id, Class, onSubmit); 
 
-  function handelInputChange(name, value)
+  function handleInputChange(name, value)
   {
     SetData(prev => ({...prev, [name]: value}))
   }
@@ -21,14 +24,17 @@ function Modal({title, type, elements, animation, Id, Class, onSubmit})
   {
     return null;
   }
+  
+  const currentTheme = themesData.find(e => e.theme === theme);
+  const serilaizedClass = Class + ` ${currentTheme.class}`;
+  const rowOffset = elements.length / 4;
+  const dynamicHeight = rowOffset > 1 ? `${30 + (rowOffset - 1) * 15}rem` : "30rem"
+  const dynamicWidth = currentTheme.radiused || rowOffset > 1  ? `${30 + rowOffset * 10}rem` : "30rem"
 
-  //console.log(fields);
-  //console.log(elementsData);
   return (
     <>
-      <div className={Class} id={Id}>
+      <div className={serilaizedClass} id={Id} style={{height: dynamicHeight, width: dynamicWidth}}>
         <h3 id="modal-header">{title}</h3>
-    
         {fields.map((field, i) => {
           const elementDef = elementsData.find(e => e.element === field.type) || elementsData.find(e => e["inherited-element"]?.includes(field.type));
           const Tag = elementDef.is_custom? componentsMap[elementDef.tag] : elementDef.tag;
@@ -36,17 +42,18 @@ function Modal({title, type, elements, animation, Id, Class, onSubmit})
           return(
             <div className="grouped-elements" key={field.id || i} >
               {Array.from({ length: field.amount }, (_, j) => {
-                  const name = Array.isArray(field.name) ? field.name[j] : field.name
+                  const name = field.name[j]
                   const Tagprobs = {
                     className: elementDef["default-class"],
                     role: elementDef.aria.role,
-                    ...(elementDef["supports-placeholder"] && ({placeholder: Array.isArray(field.placeholder) ? field.placeholder[j] : field.placeholder })),
-                    ...(elementDef["tag-type"] && ({ type: elementDef["tag-type"] }))
+                    name: name,                    
+                    ...(elementDef["supports-placeholder"] && ({placeholder: field.placeholder[j]})),
+                    ...(elementDef["supports_type"] && ({type: field.type})),
+                    ...(elementDef["supports_autocomplete"] && ({autoComplete: field.type === "password" ? "current-password": "on"}))
                   }
-                  return <Tag key={j} {...Tagprobs} onChange={(e) => handelInputChange(name, e.target.value)} />
+                  return <Tag key={j} {...Tagprobs} onChange={(e) => handleInputChange(name, e.target.value)} />
               })
               }
-              
             </div>
           )
         })}
@@ -56,9 +63,9 @@ function Modal({title, type, elements, animation, Id, Class, onSubmit})
   )
 }
 
-function SerializeData(title, type, elements, animation, Id, Class, onSubmit)
+function SerializeData(title, type, elements, theme, animation, Id, Class, onSubmit)
 {
-  const validator = ValidateInput(title, type, elements, animation, Id, Class, onSubmit)
+  const validator = ValidateInput(title, type, elements, theme, animation, Id, Class, onSubmit)
 
     if(validator.status !== 1)
     {
@@ -68,16 +75,16 @@ function SerializeData(title, type, elements, animation, Id, Class, onSubmit)
 
     const normalizedElements = elements.map(ele => ({...defaultElement, ...ele}));
     const eleValidator =  validateElements(normalizedElements);
-
+    
     if(eleValidator.status !== 1)
     {
       console.error(eleValidator.error)
       return null
     }
 
-    return normalizedElements; 
+    return normalizeElements(normalizedElements); 
 }
-function ValidateInput(title, type, elements = [], animation, Id, Class, onSubmit)
+function ValidateInput(title, type, elements, theme, animation, Id, Class, onSubmit)
 {
   if(!title)
   {
@@ -91,7 +98,10 @@ function ValidateInput(title, type, elements = [], animation, Id, Class, onSubmi
   {
     // todo when you figure out animations configue you need to write a great validation here
   }
-
+  if(!vaildThemes.includes(theme))
+  {
+    return {status: -1, error: "Please provide a vaild theme."};
+  }
   if(onSubmit !== null && typeof onSubmit !== 'function')
   {
     return {status: -1, error: "onSubmit should be provided as a function."};
@@ -125,13 +135,13 @@ function validateElements(elements)
     }
     else
     {
-      if(typeof element.placeholder !== "string")
+      if(!(typeof element.placeholder === "string" || (Array.isArray(element.placeholder) && element.placeholder.length === 1)))
       {
-        return {status: -1, error: "Element placeholder should be provided as string when the amount is set to 1."};
+        return {status: -1, error: "Element placeholder should be a string or an array of length 1."};
       }
-      if(typeof element.name !== "string")
+      if(!(typeof element.name === "string" || (Array.isArray(element.name) && element.name.length === 1)))
       {
-        return {status: -1, error: "Element name should be provided as string when the amount is set to 1."};
+        return {status: -1, error: "Element name should be a string or an array of length 1."};
       }
     }
   };
@@ -139,4 +149,12 @@ function validateElements(elements)
   return  {status: 1};
 }
 
+function normalizeElements(elements)
+{
+  return elements.map(ele => ({
+    ...ele,
+    placeholder: typeof ele.placeholder === "string" ? [ele.placeholder] : ele.placeholder,
+    name: typeof ele.name === "string" ? [ele.name] : ele.name
+  }));
+}
 export default Modal;

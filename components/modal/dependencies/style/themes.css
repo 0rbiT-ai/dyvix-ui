@@ -1,0 +1,18 @@
+.dyvix-modal-lens
+{
+    font-family: "Geist";
+    border: 4px solid #3c0349;
+    border-radius: 50%;
+    background-color: #1f2937;
+    background: radial-gradient(circle, #000000 0%, #1a1a1a 100%);
+    box-shadow: 0 0 30px #b903e2;
+    aspect-ratio: 1 /1 ;
+}
+.dyvix-modal-industrial
+{
+    font-family: "Geist";
+    border: 10px solid #374151;
+    border-radius: 10px;
+    background-color: #0a1429;
+    padding: 1.5rem;
+}

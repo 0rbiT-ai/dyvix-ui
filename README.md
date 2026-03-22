@@ -45,7 +45,9 @@ function ModalExample()
 
 ## Contributing
 
-Feel free to open meaningful issues and prs.
+Feel free to open meaningful issues and prs. Check our open contribution trackers:
+- Add new [themes](https://github.com/younisdev/dyvix-ui/issues/14)
+- Add new [animations](https://github.com/younisdev/dyvix-ui/issues/15)
 
 ## Note
 

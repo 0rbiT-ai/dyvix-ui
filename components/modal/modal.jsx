@@ -38,16 +38,18 @@ function Modal({title, type, elements, theme = "Singularity", animation = "fade"
   const dynamicWidth = currentTheme.radiused || rowOffset > 1  ? `${30 + rowOffset * 10}rem` : "30rem";
 
   useGSAP(()=> {
+    console.log("Animation Target:", currentAnimation);
+    console.log("From Vars:", currentAnimation?.from);
+    console.log("To Vars:", currentAnimation?.to);
+    
     gsap.fromTo(modalRef.current, currentAnimation.from, {
       ...currentAnimation.to,
       duration: currentAnimation["default-duration"],
-      ease: currentAnimation.ease,
-      clearProps: "transform"
-    })
-  }, []);
-
+      ease: currentAnimation.ease
+    });
+  }, [currentAnimation]);
   return (
-    <>
+    <div ref={modalRef} className="dyvix-modal-wrapper" >
       <div className={serilaizedClass} id={Id} ref={modalRef} style={{height: dynamicHeight, width: dynamicWidth}}>
         <h3 id="modal-header">{title}</h3>
         {fields.map((field, i) => {
@@ -61,15 +63,16 @@ function Modal({title, type, elements, theme = "Singularity", animation = "fade"
                   
                   // Spread aria props safely to avoid runtime errors if elementDef.aria is missing or null
                   let ariaProps = elementDef.aria ? { ...elementDef.aria } : {};
-                  
                   // Allow field-specific aria overrides for inherited elements (e.g., search gets role="searchbox")
                   const overrideConfig = elementDef["inherit-overrides"]?.[field.type];
+
                   if (overrideConfig && overrideConfig.aria) {
                     ariaProps = { ...ariaProps, ...overrideConfig.aria };
                   }
                   
                   // Build aria attributes object with defensive checks for undefined/null values
                   const ariaAttributes = {};
+
                   if (ariaProps.role !== undefined && ariaProps.role !== null) {
                     ariaAttributes.role = ariaProps.role;
                   }
@@ -96,7 +99,7 @@ function Modal({title, type, elements, theme = "Singularity", animation = "fade"
         })}
         <button className="modal-btn" onClick={()=> onSubmit(data)}>Submit</button>
       </div>
-    </>
+    </div>
   )
 }
 

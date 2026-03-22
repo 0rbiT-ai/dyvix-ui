@@ -11,9 +11,8 @@
     {
         "animation": "bubble",
         "type": "in",
-        "default-duration": 0.6,
-        "ease": "elastic.out(1, 0.5)",
-        "stagger": 0,
+        "default-duration": 1,
+        "ease": "elastic.out(0.8, 0.6)",
         "components": ["modal"],
         "from": { "scale": 0, "opacity": 0 },
         "to": { "scale": 1, "opacity": 1 }

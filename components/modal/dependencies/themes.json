@@ -22,5 +22,11 @@
         "class": "dyvix-modal-frost",
         "default-amination": "fade",
         "radiused": false
+    },
+    {
+        "theme": "Blade",
+        "class": "dyvix-modal-blade",
+        "default-amination": "fade",
+        "radiused": false
     }
 ]

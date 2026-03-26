@@ -2,7 +2,7 @@
   "name": "dyvix-ui",
   "version": "0.0.7",
   "description": "Dyvix is an open source, modern, config-driven, animated component UI library. Beautiful by default, customizable by design.",
-  "main": "index.jsx",
+  "main": "src/index.jsx",
   "type": "module",
   "license": "MIT",
   "peerDependencies": {

@@ -34,5 +34,11 @@
     "class": "dyvix-modal-neon",
     "default-animation": "pulse",
     "radiused": false
+  },
+  {
+    "theme": "Aurora",
+    "class": "dyvix-modal-aurora",
+    "default-animation": "pulse",
+    "radiused": false
   }
 ]

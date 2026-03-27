@@ -40,7 +40,7 @@ function ModalExample()
 }
 ```
 
-3 - Setup basic modal
+3 - Setup basic select
 
 ```jsx
 import { DynamicSelect } from 'dyvix-ui'

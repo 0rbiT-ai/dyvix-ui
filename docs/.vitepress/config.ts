@@ -8,7 +8,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Introduction', link: 'guide/introduction' }
+      { text: 'Introduction', link: 'guide/introduction' },
+      { text: 'Quickstart', link: 'guide/quickstart' }
     ],
 
     sidebar: [
@@ -16,7 +17,8 @@ export default defineConfig({
         text: 'Examples',
         items: [
           { text: 'Introduction', link: 'guide/introduction' },
-          { text: 'Quickstart', link: 'guide/quickstart' }
+          { text: 'Quickstart', link: 'guide/quickstart' },
+          { text: 'Modal', link: 'components/modal/modal'}
         ]
       }
     ],

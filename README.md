@@ -20,8 +20,6 @@
 
 npm i dyvix-ui
 
-````
-
 ### Basic usage
 ```jsx
 import { Modal } from 'dyvix-ui'

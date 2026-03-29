@@ -3,6 +3,7 @@ import themesData from './dependencies/themes.json';
 import SelectEngine from '../select/SelectEngine';
 import animationsData from '../animations.json';
 import validationData from './dependencies/validator/validators.json';
+import typesData from './dependencies/types.json'
 import './dependencies/style/elements.css';
 import './dependencies/style/themes.css';
 import * as validatorsFunctions from './dependencies/validator/validators';
@@ -31,6 +32,20 @@ const supportedTypes = [
 ];
 const componentsMap = { SelectEngine: SelectEngine };
 
+
+/**
+ * @param {Object} props
+ * @param {string} props.title - Modal title
+ * @param {('auth'|'form')} props.type - Modal type
+ * @param {('Singularity'|'Industrial'|'Ember'|'Frost'|'Blade'|'Neon'|'Aurora')} props.theme - Modal theme
+ * @param {string} [props.animation] - Animation name, defaults to theme default
+ * @param {string} [props.Id] - modal id
+ * @param {string} [props.class] - modal class
+ * @param {Function} [props.onClose] - Close callback
+ * @param {Function} [props.onChange] - Change callback 
+ * @param {Function} [props.onSubmit] - Submit callback
+ * @param {Array<Object>} props.elements - Array of element configs
+ */
 function Modal({
   title,
   type,

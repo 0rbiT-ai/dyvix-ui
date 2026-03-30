@@ -16,6 +16,7 @@ import { SerializeData } from './InputValidation';
 export const vaildThemes = themesData.map((e) => e.theme);
 export const validType = typesData.map((e) => e.type);
 export const validAnimations = animationsData.map((e) => e.animation);
+export const eleData = elementsData;
 const componentsMap = { SelectEngine: SelectEngine };
 
 /**
@@ -207,7 +208,7 @@ function Modal({
                 }
 
                 const Tagprobs = {
-                  className: elementDef['default-class'],
+                  className: `modal-element ` + elementDef['default-class'],
                   name: name,
                   ...ariaAttributes,
                   ...(id && id !== '!/' && { id: id }),
@@ -228,7 +229,9 @@ function Modal({
                       {...Tagprobs}
                       onChange={(e) => handleInputChange(name, e.target.value)}
                     >
-                      <option>h3</option>
+                      {field.options[j].map((opt, index) => (
+                        <option key={index} value={opt}>{opt}</option>
+                      ))}
                     </Tag>
                   );
                 }

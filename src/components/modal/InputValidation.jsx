@@ -1,4 +1,4 @@
-import { validType, vaildThemes, validAnimations } from './modal';
+import { validType, vaildThemes, validAnimations, eleData } from './modal';
 
 const defaultElement = {
   type: '!/',
@@ -95,8 +95,31 @@ export function ValidateInput(
 }
 function validateElements(elements) {
   for (const element of elements) {
+    const currentType =
+      eleData.find((e) => e.element === element.type) ||
+      eleData.find((e) => e['inherited-element']?.includes(element.type));
+
     if (!supportedTypes.includes(element.type)) {
       return { status: -1, error: 'Elements should include a valid type.' };
+    }
+    if (currentType['requires-options']) {
+      if (!element.options || element.options.length === 0) {
+        return {
+          status: -1,
+          error: `Field '${element.id}' requires an options array.`
+        };
+      }
+
+      if (
+        element.amount > 1 &&
+        (!Array.isArray(element.options) ||
+          element.options.length !== element.amount)
+      ) {
+        return {
+          status: -1,
+          error: `Amount mismatch for '${element.id}'. Expected ${element.amount} option sets.`
+        };
+      }
     }
     if (element.amount < 1 || element.amount > 3) {
       return {

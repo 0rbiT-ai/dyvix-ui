@@ -230,7 +230,9 @@ function Modal({
                       onChange={(e) => handleInputChange(name, e.target.value)}
                     >
                       {field.options[j].map((opt, index) => (
-                        <option key={index} value={opt}>{opt}</option>
+                        <option key={index} value={opt}>
+                          {opt}
+                        </option>
                       ))}
                     </Tag>
                   );

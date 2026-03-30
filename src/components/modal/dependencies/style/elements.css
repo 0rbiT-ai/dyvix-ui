@@ -37,7 +37,7 @@
 .grouped-elements:first-of-type {
   margin-top: 4rem;
 }
-.modal-text {
+.modal-element {
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
@@ -46,30 +46,25 @@
   background: transparent;
   padding: 0.5rem 1rem;
 }
-.modal-text:focus {
+.modal-element:focus {
   outline: none;
   border-color: #0ea5e9;
 }
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
-  color: rgb(103, 102, 102);
-  font-size: 1rem;
+.modal-select {
+  height: 40px;
+  color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
 }
-.modal-close-btn:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
+.modal-select option {
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #1a1a1a;
 }
 .modal-btn {
   width: 10rem;
@@ -94,4 +89,27 @@
 .modal-btn:active {
   background-color: #0ea5e9;
   transform: scale(1.05);
+}
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgb(103, 102, 102);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+.modal-close-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
 }

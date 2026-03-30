@@ -28,7 +28,7 @@
   {
     "element": "select",
     "tag": "select",
-    "default-class": "select",
+    "default-class": "modal-select",
     "aria": {
       "role": "combobox",
       "aria-required": false,
@@ -37,7 +37,7 @@
     "supports-placeholder": true,
     "supports_type": false,
     "supports_autocomplete": false,
-    "is_custom": true,
+    "is_custom": false,
     "requires-options": true,
     "r-variant": true
   }

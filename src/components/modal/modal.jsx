@@ -45,6 +45,7 @@ function Modal({
   onClose
 }) {
   const [data, SetData] = React.useState({});
+  const [visibility, SetVisibility] = React.useState(true);
   const fields = SerializeData(
     title,
     type,
@@ -61,6 +62,13 @@ function Modal({
     const nextData = { ...data, [name]: value };
     SetData(nextData);
     onChange(nextData);
+  }
+  function handleModalClose() {
+    SetVisibility(false);
+    if(typeof onClose === "function")
+    {
+      onClose();
+    }
   }
   function handleValidation() {
     for (const field of fields) {
@@ -138,124 +146,139 @@ function Modal({
   }, [currentAnimation]);
 
   return (
-    <div ref={modalRef} className="dyvix-modal-wrapper">
-      <div
-        className={serilaizedClass}
-        id={Id}
-        ref={modalRef}
-        style={{
-          height: dynamicHeight,
-          width: dynamicWidth,
-          position: 'relative'
-        }}
-      >
-        {currentType.closable && (
-          <button
-            className="modal-close-btn"
-            onClick={onClose}
-            aria-label="Close modal"
+    <>
+      {visibility && (
+        <div ref={modalRef} className="dyvix-modal-wrapper">
+          <div
+            className={serilaizedClass}
+            id={Id}
+            ref={modalRef}
             style={{
-              top: currentTheme.radiused ? '2rem' : '1rem',
-              right: currentTheme.radiused ? '9rem' : '1rem'
+              height: dynamicHeight,
+              width: dynamicWidth,
+              position: 'relative'
             }}
           >
-            ✕
-          </button>
-        )}
-        <h3 id="modal-header">{title}</h3>
-        {fields.map((field, i) => {
-          const elementDef =
-            elementsData.find((e) => e.element === field.type) ||
-            elementsData.find((e) =>
-              e['inherited-element']?.includes(field.type)
-            );
-          const Tag = elementDef.is_custom
-            ? componentsMap[elementDef.tag]
-            : elementDef.tag;
-
-          return (
-            <div className="grouped-elements" key={field.id || i}>
-              {Array.from({ length: field.amount }, (_, j) => {
-                const name = field.name[j];
-                const id = field.id[j];
-                // Spread aria props safely to avoid runtime errors if elementDef.aria is missing or null
-                let ariaProps = elementDef.aria ? { ...elementDef.aria } : {};
-                // Allow field-specific aria overrides for inherited elements (e.g., search gets role="searchbox")
-                const overrideConfig =
-                  elementDef['inherit-overrides']?.[field.type];
-
-                if (overrideConfig && overrideConfig.aria) {
-                  ariaProps = { ...ariaProps, ...overrideConfig.aria };
-                }
-
-                // Build aria attributes object with defensive checks for undefined/null values
-                const ariaAttributes = {};
-
-                if (ariaProps.role !== undefined && ariaProps.role !== null) {
-                  ariaAttributes.role = ariaProps.role;
-                }
-                if (
-                  ariaProps['aria-label'] !== undefined &&
-                  ariaProps['aria-label'] !== null
-                ) {
-                  ariaAttributes['aria-label'] = ariaProps['aria-label'];
-                }
-                if (
-                  ariaProps['aria-required'] !== undefined &&
-                  ariaProps['aria-required'] !== null
-                ) {
-                  ariaAttributes['aria-required'] = ariaProps['aria-required'];
-                }
-
-                const Tagprobs = {
-                  className: `modal-element ` + elementDef['default-class'],
-                  name: name,
-                  ...ariaAttributes,
-                  ...(id && id !== '!/' && { id: id }),
-                  ...(elementDef['supports-placeholder'] && {
-                    placeholder: field.placeholder[j]
-                  }),
-                  ...(elementDef['supports_type'] && { type: field.type }),
-                  ...(elementDef['supports_autocomplete'] && {
-                    autoComplete:
-                      field.type === 'password' ? 'current-password' : 'on'
-                  })
-                };
-
-                if (elementDef['requires-options'] && Tag === 'select') {
-                  return (
-                    <Tag
-                      key={j}
-                      {...Tagprobs}
-                      onChange={(e) => handleInputChange(name, e.target.value)}
-                    >
-                      {field.options[j].map((opt, index) => (
-                        <option key={index} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </Tag>
-                  );
-                }
-
-                return (
-                  <Tag
-                    key={j}
-                    {...Tagprobs}
-                    onChange={(e) => handleInputChange(name, e.target.value)}
-                  />
+            {currentType.closable && (
+              <button
+                className="modal-close-btn"
+                onClick={() => handleModalClose()}
+                aria-label="Close modal"
+                style={{
+                  top: currentTheme.radiused ? '2rem' : '1rem',
+                  right: currentTheme.radiused ? '9rem' : '1rem'
+                }}
+              >
+                ✕
+              </button>
+            )}
+            <h3 id="modal-header">{title}</h3>
+            {fields.map((field, i) => {
+              const elementDef =
+                elementsData.find((e) => e.element === field.type) ||
+                elementsData.find((e) =>
+                  e['inherited-element']?.includes(field.type)
                 );
-              })}
-            </div>
-          );
-        })}
-        {currentType.submit && (
-          <button className="modal-btn" onClick={() => handleSubmit()}>
-            {currentType.submitLabel}
-          </button>
-        )}
-      </div>
-    </div>
+              const Tag = elementDef.is_custom
+                ? componentsMap[elementDef.tag]
+                : elementDef.tag;
+
+              return (
+                <div className="grouped-elements" key={field.id || i}>
+                  {Array.from({ length: field.amount }, (_, j) => {
+                    const name = field.name[j];
+                    const id = field.id[j];
+                    // Spread aria props safely to avoid runtime errors if elementDef.aria is missing or null
+                    let ariaProps = elementDef.aria
+                      ? { ...elementDef.aria }
+                      : {};
+                    // Allow field-specific aria overrides for inherited elements (e.g., search gets role="searchbox")
+                    const overrideConfig =
+                      elementDef['inherit-overrides']?.[field.type];
+
+                    if (overrideConfig && overrideConfig.aria) {
+                      ariaProps = { ...ariaProps, ...overrideConfig.aria };
+                    }
+
+                    // Build aria attributes object with defensive checks for undefined/null values
+                    const ariaAttributes = {};
+
+                    if (
+                      ariaProps.role !== undefined &&
+                      ariaProps.role !== null
+                    ) {
+                      ariaAttributes.role = ariaProps.role;
+                    }
+                    if (
+                      ariaProps['aria-label'] !== undefined &&
+                      ariaProps['aria-label'] !== null
+                    ) {
+                      ariaAttributes['aria-label'] = ariaProps['aria-label'];
+                    }
+                    if (
+                      ariaProps['aria-required'] !== undefined &&
+                      ariaProps['aria-required'] !== null
+                    ) {
+                      ariaAttributes['aria-required'] =
+                        ariaProps['aria-required'];
+                    }
+
+                    const Tagprobs = {
+                      className: `modal-element ` + elementDef['default-class'],
+                      name: name,
+                      ...ariaAttributes,
+                      ...(id && id !== '!/' && { id: id }),
+                      ...(elementDef['supports-placeholder'] && {
+                        placeholder: field.placeholder[j]
+                      }),
+                      ...(elementDef['supports_type'] && { type: field.type }),
+                      ...(elementDef['supports_autocomplete'] && {
+                        autoComplete:
+                          field.type === 'password' ? 'current-password' : 'on'
+                      })
+                    };
+
+                    if (elementDef['requires-options'] && Tag === 'select') {
+                      return (
+                        <Tag
+                          key={j}
+                          {...Tagprobs}
+                          onChange={(e) =>
+                            handleInputChange(name, e.target.value)
+                          }
+                        >
+                          <option selected disabled value={null}>{field.placeholder[j]}</option>
+                          {field.options[j].map((opt, index) => (
+                            <option key={index} value={opt}>
+                              {opt}
+                            </option>
+                          ))}
+                        </Tag>
+                      );
+                    }
+
+                    return (
+                      <Tag
+                        key={j}
+                        {...Tagprobs}
+                        onChange={(e) =>
+                          handleInputChange(name, e.target.value)
+                        }
+                      />
+                    );
+                  })}
+                </div>
+              );
+            })}
+            {currentType.submit && (
+              <button className="modal-btn" onClick={() => handleSubmit()}>
+                {currentType.submitLabel}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

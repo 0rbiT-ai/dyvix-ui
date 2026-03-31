@@ -14,6 +14,7 @@ function DynamicSelect({
   type = 'select',
   animation = 'fade',
   Class,
+  placeholder = 'Select...',
   ...props
 }) {
   const [Select, SetSelect] = React.useState({
@@ -101,6 +102,7 @@ function DynamicSelect({
         className={`dyvi-select`}
         type="text"
         ref={selectRef}
+        placeholder={placeholder}
         onChange={(e) => {
           PopulateSelect(e.target.value, SetSelect, elements);
           onChangeInternalCallback(e.target.value);
@@ -121,6 +123,7 @@ function DynamicSelect({
         ref={dropdownSelectRef}
         controller={SetSelect}
         OnChangeCallback={(value) => onChangeInternalCallback(value)}
+        placeholder={placeholder}
       />
     </div>
   );

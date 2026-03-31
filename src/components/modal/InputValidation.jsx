@@ -11,6 +11,7 @@ const defaultElement = {
 const supportedTypes = [
   'text',
   'select',
+  'd-select',
   'email',
   'password',
   'search',

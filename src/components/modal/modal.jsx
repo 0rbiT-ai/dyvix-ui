@@ -1,6 +1,6 @@
 import elementsData from './dependencies/elements.json';
 import themesData from './dependencies/themes.json';
-import SelectEngine from '../select/SelectEngine';
+import DynamicSelect from '../select/SelectCompiler';
 import animationsData from '../animations.json';
 import validationData from './dependencies/validator/validators.json';
 import typesData from './dependencies/types.json';
@@ -17,7 +17,7 @@ export const vaildThemes = themesData.map((e) => e.theme);
 export const validType = typesData.map((e) => e.type);
 export const validAnimations = animationsData.map((e) => e.animation);
 export const eleData = elementsData;
-const componentsMap = { SelectEngine: SelectEngine };
+const componentsMap = { DynamicSelect: DynamicSelect };
 
 /**
  * @param {Object} props
@@ -235,9 +235,9 @@ function Modal({
                       ...(elementDef['supports_autocomplete'] && {
                         autoComplete:
                           field.type === 'password' ? 'current-password' : 'on'
-                      })
+                      }),
+                      ...(elementDef.tag === "DynamicSelect"  && { elements : field.options[j],  animation: "!/", Class: "modal-element"})
                     };
-
                     if (elementDef['requires-options'] && Tag === 'select') {
                       return (
                         <Tag
@@ -262,7 +262,7 @@ function Modal({
                         key={j}
                         {...Tagprobs}
                         onChange={(e) =>
-                          handleInputChange(name, e.target.value)
+                          handleInputChange(name, elementDef['is_custom'] ? e:e.target.value)
                         }
                       />
                     );

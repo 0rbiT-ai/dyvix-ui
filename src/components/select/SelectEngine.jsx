@@ -23,13 +23,14 @@ const SelectEngine = forwardRef(
       if (!value) {
         return;
       }
+
       inputRef.current.value = value;
       controller((prevData) => ({
         ...prevData,
         is_open: false
       }));
-
-      OnChangeCallback();
+      
+      OnChangeCallback(value);
     }
 
     useGSAP(() => {
@@ -89,7 +90,10 @@ const SelectEngine = forwardRef(
                   role="listitem"
                   ref={(ele) => (itemsRef.current[index] = ele)}
                   key={index}
-                  onClick={() => ChangeValue(element)}
+                  onMouseDown={(e) => {
+                    e.preventDefault()
+                    ChangeValue(element)
+                  }}
                 >
                   {element}
                 </li>

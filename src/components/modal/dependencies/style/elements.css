@@ -5,7 +5,6 @@
   margin: 7rem auto;
   justify-self: center;
 }
-
 .modal {
   display: flex;
   flex-direction: column;
@@ -54,6 +53,33 @@
 .modal-element:focus {
   outline: none;
   border-color: #0ea5e9;
+}
+.modal-element.dyvix-select-warper
+{
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  height: auto;
+
+}
+.modal-element.dyvix-select-warper:hover {
+  border-color: transparent;
+  background-color: transparent;
+  transform: scale(1);
+
+}
+.modal-element.dyvix-select-warper input {
+  height: 25px;
+}
+.modal-element.dyvix-select-warper input:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 25px;
+}
+.dyvix-dropdown-select li
+{
+  color: #1a1a1a;
 }
 .modal-select {
   height: 40px;

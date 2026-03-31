@@ -10,9 +10,10 @@ const validAnimations = animationsData.map((e) => e.animation);
 
 function DynamicSelect({
   elements = [],
-  onChangeCallback,
+  onChange,
   type = 'select',
   animation = 'fade',
+  Class,
   ...props
 }) {
   const [Select, SetSelect] = React.useState({
@@ -29,9 +30,8 @@ function DynamicSelect({
     console.error(is_valid.error);
     return null;
   }
-
   function onChangeInternalCallback(data) {
-    onChangeCallback(data);
+    onChange(data);
   }
 
   function TranslateEngineType(value, handler, controller) {
@@ -95,9 +95,10 @@ function DynamicSelect({
   }, [currentAnimation]);
 
   return (
-    <div className="dyvix-select-warper" style={props}>
+    <div className={`${Class} dyvix-select-warper`} >
       <input
-        className="dyvi-select"
+        autoComplete='off'
+        className={`dyvi-select`}
         type="text"
         ref={selectRef}
         onChange={(e) => {
@@ -119,7 +120,7 @@ function DynamicSelect({
         inputRef={selectRef}
         ref={dropdownSelectRef}
         controller={SetSelect}
-        OnChangeCallback={onChangeCallback}
+        OnChangeCallback={(value) => onChangeInternalCallback(value)}
       />
     </div>
   );

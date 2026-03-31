@@ -40,5 +40,22 @@
     "is_custom": false,
     "requires-options": true,
     "r-variant": true
+  },
+  {
+    "element": "d-select",
+    "tag": "DynamicSelect",
+    "default-class": "modal-DynamicSelect",
+    "aria": {
+      "role": "combobox",
+      "aria-required": false,
+      "aria-label": ""
+    },
+    "supports-placeholder": true,
+    "supports_type": false,
+    "supports_autocomplete": false,
+    "is_custom": true,
+    "requires-options": true,
+    "r-variant": true
   }
+
 ]

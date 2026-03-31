@@ -45,6 +45,11 @@
   margin: 0 auto;
   background: transparent;
   padding: 0.5rem 1rem;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.modal-element:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 .modal-element:focus {
   outline: none;

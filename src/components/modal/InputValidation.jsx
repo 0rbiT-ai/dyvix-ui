@@ -1,4 +1,7 @@
 import { validType, vaildThemes, validAnimations, eleData } from './modal';
+import { EvaluateFailure, GaurdStatus } from '../../utils/DyvixGuard';
+
+
 
 const defaultElement = {
   type: '!/',
@@ -41,9 +44,9 @@ export function SerializeData(
     onSubmit
   );
 
-  if (validator.status !== 1) {
-    console.error(validator.error);
-    return null;
+  if(validator.status === GaurdStatus.Error)
+  {
+    return EvaluateFailure(validator.error, validator.status);
   }
 
   const normalizedElements = normalizeElements(
@@ -51,9 +54,9 @@ export function SerializeData(
   );
   const eleValidator = validateElements(normalizedElements);
 
-  if (eleValidator.status !== 1) {
-    console.error(eleValidator.error);
-    return null;
+  if(eleValidator.status === GaurdStatus.Error)
+  {
+    return EvaluateFailure(eleValidator.error, eleValidator.status);
   }
 
   return normalizedElements;
@@ -69,31 +72,31 @@ export function ValidateInput(
   onSubmit
 ) {
   if (!title) {
-    return { status: -1, error: 'Please provide a title' };
+    return { status: GaurdStatus.Error, error: 'Please provide a title' };
   }
   if (!validType.includes(type)) {
-    return { status: -1, error: 'Please provide a vaild type.' };
+    return { status: GaurdStatus.Error, error: 'Please provide a vaild type.' };
   }
   if (
     !Array.isArray(elements) ||
     !elements.every((ele) => typeof ele === 'object')
   ) {
     return {
-      status: -1,
+      status: GaurdStatus.Error,
       error: 'Element should be provided as an array of objects.'
     };
   }
   if (animation !== '!/' && !validAnimations.includes(animation)) {
-    return { status: -1, error: 'Please provide a vaild animation.' };
+    return { status: GaurdStatus.Error, error: 'Please provide a vaild animation.' };
   }
   if (!vaildThemes.includes(theme)) {
-    return { status: -1, error: 'Please provide a vaild theme.' };
+    return { status: GaurdStatus.Error, error: 'Please provide a vaild theme.' };
   }
   if (onSubmit !== null && typeof onSubmit !== 'function') {
-    return { status: -1, error: 'onSubmit should be provided as a function.' };
+    return { status: GaurdStatus.Error, error: 'onSubmit should be provided as a function.' };
   }
 
-  return { status: 1 };
+  return { status: GaurdStatus.Success };
 }
 function validateElements(elements) {
   for (const element of elements) {
@@ -102,12 +105,12 @@ function validateElements(elements) {
       eleData.find((e) => e['inherited-element']?.includes(element.type));
 
     if (!supportedTypes.includes(element.type)) {
-      return { status: -1, error: 'Elements should include a valid type.' };
+      return { status: GaurdStatus.Error, error: 'Elements should include a valid type.' };
     }
     if (currentType['requires-options']) {
       if (!element.options || element.options.length === 0) {
         return {
-          status: -1,
+          status: GaurdStatus.Error,
           error: `Field '${element.id}' requires an options array.`
         };
       }
@@ -118,14 +121,14 @@ function validateElements(elements) {
           element.options.length !== element.amount)
       ) {
         return {
-          status: -1,
+          status: GaurdStatus.Error,
           error: `Amount mismatch for '${element.id}'. Expected ${element.amount} option sets.`
         };
       }
     }
     if (element.amount < 1 || element.amount > 3) {
       return {
-        status: -1,
+        status: GaurdStatus.Error,
         error: 'Element amount should be positive and less than 3.'
       };
     } else if (element.amount > 1) {
@@ -134,7 +137,7 @@ function validateElements(elements) {
         element.placeholder.length !== element.amount
       ) {
         return {
-          status: -1,
+          status: GaurdStatus.Error,
           error:
             'Element placeholder should be provided as an array of the same length as the provided amount.'
         };
@@ -144,7 +147,7 @@ function validateElements(elements) {
         element.name.length !== element.amount
       ) {
         return {
-          status: -1,
+          status: GaurdStatus.Error,
           error:
             'Element name should be provided as an array of the same length as the provided amount.'
         };
@@ -156,14 +159,14 @@ function validateElements(elements) {
         )
       ) {
         return {
-          status: -1,
+          status: GaurdStatus.Error,
           error:
             'Element placeholder should be a string or an array of length 1.'
         };
       }
       if (!(Array.isArray(element.name) && element.name.length === 1)) {
         return {
-          status: -1,
+          status: GaurdStatus.Error,
           error: 'Element name should be a string or an array of length 1.'
         };
       }
@@ -173,14 +176,14 @@ function validateElements(elements) {
   const isDuplicateName = checkDuplicates(elements, 'name');
   const isDuplicateId = checkDuplicates(elements, 'id');
 
-  if (isDuplicateName?.status === -1) {
+  if (isDuplicateName?.status === GaurdStatus.Error) {
     return isDuplicateName;
   }
-  if (isDuplicateId?.status === -1) {
+  if (isDuplicateId?.status === GaurdStatus.Error) {
     return isDuplicateId;
   }
 
-  return { status: 1 };
+  return { status: GaurdStatus.Success };
 }
 function normalizeElements(elements) {
   return elements.map((ele) => ({
@@ -198,15 +201,16 @@ function checkDuplicates(elements, field) {
 
   for (const element of elements) {
     const currentFields = element[field];
-
-    for (const key in currentFields) {
-      if (found.has(currentFields[key])) {
-        return { status: -1, error: `Element ${field} should be unique.` };
+    
+    for (const val of currentFields) {
+      if (val === '!/') continue;
+      if (found.has(val)) {
+        return { status: GaurdStatus.Error, error: `Element ${field} should be unique.` };
       }
 
-      found.add(currentFields[key]);
+      found.add(val);
     }
   }
 
-  return { status: 1 };
+  return { status: GaurdStatus.Success };
 }

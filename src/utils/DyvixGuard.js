@@ -1,7 +1,8 @@
 export const GaurdStatus = {
     Error: "error",
     Warn: "warn",
-    Log: "log"
+    Log: "log",
+    Success: "success"
 }
 const PREFIX = "[DyvixUI]";
 
@@ -12,10 +13,11 @@ export function EvaluateFailure(message = "", status)
     switch(status) {
         case GaurdStatus.Error:
             console.error(formatedmsg);
-            return;
+            return null;
         case GaurdStatus.Warn:
             console.warn(formatedmsg);
-        default:
+            break;
+        case GaurdStatus.Log:
             console.log(formatedmsg);
     }
 }

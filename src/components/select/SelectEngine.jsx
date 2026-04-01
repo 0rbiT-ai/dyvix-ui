@@ -30,7 +30,7 @@ const SelectEngine = forwardRef(
         ...prevData,
         is_open: false
       }));
-      
+
       OnChangeCallback(value);
     }
 
@@ -85,25 +85,15 @@ const SelectEngine = forwardRef(
             }
             ref={ref}
           >
-            {is_open && !(selectedElement || inputRef?.current?.value) && (
-              <li
-                role="option"
-                aria-disabled="true"
-                key="placeholder"
-                onMouseDown={(e) => e.preventDefault()}
-              >
-                {placeholder}
-              </li>
-            )}
             {is_open &&
               elements.map((element, index) => (
                 <li
-                  role="listitem"
+                  role="option"
                   ref={(ele) => (itemsRef.current[index] = ele)}
                   key={index}
                   onMouseDown={(e) => {
-                    e.preventDefault()
-                    ChangeValue(element)
+                    e.preventDefault();
+                    ChangeValue(element);
                   }}
                 >
                   {element}
@@ -111,7 +101,7 @@ const SelectEngine = forwardRef(
               ))}
             {is_open && elements.length === 0 && (
               <li
-                role="listitem"
+                role="option"
                 key={404}
                 style={{
                   fontSize: '.5rem',

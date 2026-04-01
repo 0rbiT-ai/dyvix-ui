@@ -44,7 +44,9 @@
   margin: 0 auto;
   background: transparent;
   padding: 0.5rem 1rem;
-  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition:
+    border-color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
 }
 .modal-element:hover {
   border-color: rgba(255, 255, 255, 0.5);
@@ -54,20 +56,17 @@
   outline: none;
   border-color: #0ea5e9;
 }
-.modal-element.dyvix-select-warper
-{
+.modal-element.dyvix-select-warper {
   border: none;
   border-radius: 0;
   background: transparent;
   padding: 0;
   height: auto;
-
 }
 .modal-element.dyvix-select-warper:hover {
   border-color: transparent;
   background-color: transparent;
   transform: scale(1);
-
 }
 .modal-element.dyvix-select-warper input {
   height: 25px;
@@ -77,8 +76,7 @@
   background-color: rgba(255, 255, 255, 0.05);
   height: 25px;
 }
-.dyvix-dropdown-select li
-{
+.dyvix-dropdown-select li {
   color: #1a1a1a;
 }
 .modal-select {

@@ -65,8 +65,7 @@ function Modal({
   }
   function handleModalClose() {
     SetVisibility(false);
-    if(typeof onClose === "function")
-    {
+    if (typeof onClose === 'function') {
       onClose();
     }
   }
@@ -236,7 +235,11 @@ function Modal({
                         autoComplete:
                           field.type === 'password' ? 'current-password' : 'on'
                       }),
-                      ...(elementDef.tag === "DynamicSelect"  && { elements : field.options[j],  animation: "!/", Class: "modal-element"})
+                      ...(elementDef.tag === 'DynamicSelect' && {
+                        elements: field.options[j],
+                        animation: '!/',
+                        Class: 'modal-element'
+                      })
                     };
                     if (elementDef['requires-options'] && Tag === 'select') {
                       return (
@@ -247,9 +250,16 @@ function Modal({
                             handleInputChange(name, e.target.value)
                           }
                         >
-                          <option selected disabled value={null}>{field.placeholder[j]}</option>
+                          <option selected disabled value={null}>
+                            {field.placeholder[j]}
+                          </option>
                           {field.options[j].map((opt, index) => (
-                            <option key={index} value={opt}>
+                            <option
+                              role="option"
+                              key={index}
+                              value={opt}
+                              tabIndex={index}
+                            >
                               {opt}
                             </option>
                           ))}
@@ -262,7 +272,10 @@ function Modal({
                         key={j}
                         {...Tagprobs}
                         onChange={(e) =>
-                          handleInputChange(name, elementDef['is_custom'] ? e:e.target.value)
+                          handleInputChange(
+                            name,
+                            elementDef['is_custom'] ? e : e.target.value
+                          )
                         }
                       />
                     );

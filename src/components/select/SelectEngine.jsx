@@ -85,16 +85,6 @@ const SelectEngine = forwardRef(
             }
             ref={ref}
           >
-            {is_open && !(selectedElement || inputRef?.current?.value) && (
-              <li
-                role="option"
-                aria-disabled="true"
-                key="placeholder"
-                onMouseDown={(e) => e.preventDefault()}
-              >
-                {placeholder}
-              </li>
-            )}
             {is_open &&
               elements.map((element, index) => (
                 <li

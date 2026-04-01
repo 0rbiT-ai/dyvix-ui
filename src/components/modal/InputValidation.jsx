@@ -12,6 +12,7 @@ const supportedTypes = [
   'text',
   'select',
   'd-select',
+  'autocomplete',
   'email',
   'password',
   'search',

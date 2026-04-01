@@ -17,6 +17,9 @@ function DynamicSelect({
   placeholder = 'Select...',
   ...props
 }) {
+  
+  type = type.includes("-") ? type.split("-")[1] : type;
+
   const [Select, SetSelect] = React.useState({
     is_rendered: true,
     is_open: false,

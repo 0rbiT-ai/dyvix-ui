@@ -96,9 +96,13 @@ function DynamicSelect({
   }, [currentAnimation]);
 
   return (
-    <div className={`${Class} dyvix-select-warper`} >
+    <div className={`${Class} dyvix-select-warper`}>
       <input
-        autoComplete='off'
+        autoComplete="off"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={Select.is_open}
+        aria-haspopup="listbox"
         className={`dyvi-select`}
         type="text"
         ref={selectRef}
@@ -113,7 +117,6 @@ function DynamicSelect({
         onBlur={(e) => {
           TranslateEngineType(e.target.value, 'blur', SetSelect);
         }}
-        type={type}
       />
       <SelectEngine
         elements={Select.elements}

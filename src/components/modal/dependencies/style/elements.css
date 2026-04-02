@@ -58,10 +58,13 @@
 }
 .modal-element.dyvix-select-wrapper  {
   border: none;
-  border-radius: 0;
   background: transparent;
   padding: 0;
   height: auto;
+  flex: 1 1 0px;
+  min-width: 0;
+  width: 0;
+  box-sizing: border-box;
 }
 .modal-element.dyvix-select-wrapper:hover {
   border-color: transparent;
@@ -69,18 +72,19 @@
   transform: scale(1);
 }
 .modal-element.dyvix-select-wrapper input {
-  height: 25px;
+  width: 100%;
+  height: 42px;
+  box-sizing: border-box;
 }
 .modal-element.dyvix-select-wrapper input:hover {
   border-color: rgba(255, 255, 255, 0.5);
   background-color: rgba(255, 255, 255, 0.05);
-  height: 25px;
 }
 .dyvix-dropdown-select li {
   color: #1a1a1a;
 }
 .modal-select {
-  height: 40px;
+  height: 42px;
   color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
   appearance: none;

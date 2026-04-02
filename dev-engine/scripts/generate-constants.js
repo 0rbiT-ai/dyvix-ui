@@ -14,7 +14,7 @@ GenerateConstants(
 GenerateConstants(
   './src/components/modal/dependencies/types.json',
   'type',
-  'types',
+  'modal',
   'post'
 );
 GenerateConstants(
@@ -30,10 +30,15 @@ GenerateConstants(
   'post'
 );
 
-function GenerateConstants(jsonpath, varname, component, stage) {
+function GenerateConstants(jsonpath, varname, component, stage, inheritance='') {
   const absolutePath = path.resolve(__dirname, '../../', jsonpath);
   const currentFile = JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
-  const dataKeys = currentFile.map((e) => e[varname]);
+  const dataKeys = currentFile.flatMap(e => {
+    const primary = e[varname];
+    const inherited = inheritance && e[inheritance] ? e[inheritance] : [];
+    return [primary, ...[].concat(inherited)];
+  });
+  const uniqueKeys = [...new Set(dataKeys.filter(Boolean))];
   const SerializeKey = (str) => String(str).toUpperCase().replace(/-/g, '_');
   const target = './src/constants.js';
 
@@ -51,7 +56,7 @@ function GenerateConstants(jsonpath, varname, component, stage) {
 
   let constantObj = {};
 
-  dataKeys.forEach((key) => {
+  uniqueKeys.forEach((key) => {
     constantObj[SerializeKey(key)] = key;
   });
 

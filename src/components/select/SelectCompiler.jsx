@@ -99,7 +99,7 @@ function DynamicSelect({
   }, [currentAnimation]);
 
   return (
-    <div className={`${Class} dyvix-select-warper`}>
+    <div className={`${Class} dyvix-select-wrapper`}>
       <input
         autoComplete="off"
         role="combobox"

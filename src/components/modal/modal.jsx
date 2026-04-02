@@ -134,6 +134,22 @@ function Modal({
     });
   }, []);
 
+  // Auto-focus for the first input when modal opens
+  React.useEffect(() => {
+    if (visibility && modalRef.current) {
+      // Search the first input, select o textarea inside the modal
+      const firstInput = modalRef.current.querySelector(
+        'input, select, textarea'
+      );
+      
+      // If input exist make focus
+      if (firstInput) {
+        firstInput.focus();
+      }
+    }
+  }, [visibility]); // It only runs when the modal opens/closes
+
+
   useGSAP(() => {
     if (!modalRef.current || !currentAnimation) return;
 

@@ -7,3 +7,4 @@ Thanks for everyone who has contributed to Dyvix UI!
 - [@Chizaram-Igolo](https://github.com/Chizaram-Igolo)
 - [@ambujvashistha](https://github.com/ambujvashistha)
 - [@gemini-25-pro-collab](https://github.com/gemini-25-pro-collab)
+- [@andresvaldezt](https://github.com/andresvaldezt)

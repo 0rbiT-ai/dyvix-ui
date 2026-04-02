@@ -1,8 +1,8 @@
-.dyvix-select-warper {
+.dyvix-select-wrapper {
   width: 12rem;
   transition: all 0.5s ease-in-out;
 }
-.dyvix-select-warper:hover {
+.dyvix-select-wrapper:hover {
   transform: scale(1.02);
 }
 .dyvi-select {

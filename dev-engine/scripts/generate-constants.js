@@ -30,6 +30,14 @@ GenerateConstants(
   'post'
 );
 
+GenerateConstants(
+  './src/components/modal/dependencies/elements.json',
+  'element',
+  'modal',
+  'post',
+  'inherited-element'
+);
+
 function GenerateConstants(jsonpath, varname, component, stage, inheritance='') {
   const absolutePath = path.resolve(__dirname, '../../', jsonpath);
   const currentFile = JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));

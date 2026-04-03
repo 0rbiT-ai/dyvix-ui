@@ -50,7 +50,7 @@
   {
     "theme": "Ocean",
     "class": "dyvix-modal-ocean",
-    "default-animation": "aurora",
+    "default-animation": "flip",
     "radiused": false
   }
 ]

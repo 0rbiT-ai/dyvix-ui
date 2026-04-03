@@ -40,5 +40,11 @@
     "class": "dyvix-modal-aurora",
     "default-animation": "aurora",
     "radiused": false
+  },
+{
+    "theme": "Sunset",
+    "class": "dyvix-modal-sunset",
+    "default-animation": "aurora",
+    "radiused": false
   }
 ]

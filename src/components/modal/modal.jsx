@@ -122,8 +122,7 @@ function Modal({
       e.animation.trim().toLowerCase() === animationQuery.trim().toLowerCase()
   );
   const currentPreset = presetData.find(
-    (e) =>
-      e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
+    (e) => e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
   );
   const serilaizedClass =
     Class + ` ${currentTheme.class}` + ` ${currentType.class}`;
@@ -136,7 +135,7 @@ function Modal({
       : '30rem';
 
   if (currentPreset) {
-    title = title !== "!/" ? title : currentPreset['default-title'];
+    title = title !== '!/' ? title : currentPreset['default-title'];
   }
 
   React.useEffect(() => {

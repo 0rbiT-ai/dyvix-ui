@@ -38,10 +38,16 @@ GenerateConstants(
   'inherited-element'
 );
 
-function GenerateConstants(jsonpath, varname, component, stage, inheritance='') {
+function GenerateConstants(
+  jsonpath,
+  varname,
+  component,
+  stage,
+  inheritance = ''
+) {
   const absolutePath = path.resolve(__dirname, '../../', jsonpath);
   const currentFile = JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
-  const dataKeys = currentFile.flatMap(e => {
+  const dataKeys = currentFile.flatMap((e) => {
     const primary = e[varname];
     const inherited = inheritance && e[inheritance] ? e[inheritance] : [];
     return [primary, ...[].concat(inherited)];

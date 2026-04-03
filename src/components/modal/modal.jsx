@@ -4,6 +4,7 @@ import DynamicSelect from '../select/SelectCompiler';
 import animationsData from '../animations.json';
 import validationData from './dependencies/validator/validators.json';
 import typesData from './dependencies/types.json';
+import presetData from './dependencies/presets.json';
 import './dependencies/style/elements.css';
 import './dependencies/style/themes.css';
 import * as validatorsFunctions from './dependencies/validator/validators';
@@ -16,6 +17,8 @@ import { SerializeData } from './InputValidation';
 export const vaildThemes = themesData.map((e) => e.theme);
 export const validType = typesData.map((e) => e.type);
 export const validAnimations = animationsData.map((e) => e.animation);
+export const validPreset = presetData.map((e) => e.preset);
+
 export const eleData = elementsData;
 const componentsMap = { DynamicSelect: DynamicSelect };
 
@@ -33,9 +36,10 @@ const componentsMap = { DynamicSelect: DynamicSelect };
  * @param {Array<Object>} props.elements - Array of element configs
  */
 function Modal({
-  title,
+  title = '!/',
   type = `form`,
   elements,
+  preset = '!/',
   theme = 'Singularity',
   animation = '!/',
   Id,
@@ -50,6 +54,7 @@ function Modal({
     title,
     type,
     elements,
+    preset,
     theme,
     animation,
     Id,
@@ -116,15 +121,23 @@ function Modal({
     (e) =>
       e.animation.trim().toLowerCase() === animationQuery.trim().toLowerCase()
   );
+  const currentPreset = presetData.find(
+    (e) =>
+      e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
+  );
   const serilaizedClass =
     Class + ` ${currentTheme.class}` + ` ${currentType.class}`;
-  const rowOffset = elements.length / 4;
+  const rowOffset = fields.length / 4;
   const dynamicHeight =
     rowOffset > 1 ? `${30 + (rowOffset - 1) * 15}rem` : '30rem';
   const dynamicWidth =
     currentTheme.radiused || rowOffset > 1
       ? `${30 + rowOffset * 10}rem`
       : '30rem';
+
+  if (currentPreset) {
+    title = title !== "!/" ? title : currentPreset['default-title'];
+  }
 
   React.useEffect(() => {
     fields.forEach((field) => {
@@ -141,14 +154,13 @@ function Modal({
       const firstInput = modalRef.current.querySelector(
         'input, select, textarea'
       );
-      
+
       // If input exist make focus
       if (firstInput) {
         firstInput.focus();
       }
     }
   }, [visibility]); // It only runs when the modal opens/closes
-
 
   useGSAP(() => {
     if (!modalRef.current || !currentAnimation) return;
@@ -165,7 +177,7 @@ function Modal({
       {visibility && (
         <div ref={modalRef} className="dyvix-modal-wrapper">
           <div
-            className={serilaizedClass}
+            className={`modal ${serilaizedClass}`}
             id={Id}
             ref={modalRef}
             style={{

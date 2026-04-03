@@ -3,7 +3,7 @@ import {
   vaildThemes,
   validAnimations,
   eleData,
-  validPreset,
+  validPreset
 } from './modal';
 import presetData from './dependencies/presets.json';
 import { EvaluateFailure, GaurdStatus } from '../../utils/DyvixGuard';
@@ -84,7 +84,10 @@ export function ValidateInput(
 ) {
   if (preset !== '!/') {
     if (!validPreset.includes(preset)) {
-      return { status: GaurdStatus.Error, error: 'Please provide a valid preset.' };
+      return {
+        status: GaurdStatus.Error,
+        error: 'Please provide a valid preset.'
+      };
     }
   }
 
@@ -93,7 +96,7 @@ export function ValidateInput(
       status: GaurdStatus.Error,
       error: 'Please provide a vaild animation.'
     };
-  }  
+  }
   if (!vaildThemes.includes(theme)) {
     return {
       status: GaurdStatus.Error,
@@ -107,7 +110,7 @@ export function ValidateInput(
     };
   }
   if (preset !== '!/') return { status: GaurdStatus.Success };
-  if (title === "!/") {
+  if (title === '!/') {
     return { status: GaurdStatus.Error, error: 'Please provide a title' };
   }
   if (!validType.includes(type)) {

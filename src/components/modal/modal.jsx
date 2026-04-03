@@ -4,6 +4,7 @@ import DynamicSelect from '../select/SelectCompiler';
 import animationsData from '../animations.json';
 import validationData from './dependencies/validator/validators.json';
 import typesData from './dependencies/types.json';
+import presetData from './dependencies/preset.json';
 import './dependencies/style/elements.css';
 import './dependencies/style/themes.css';
 import * as validatorsFunctions from './dependencies/validator/validators';
@@ -16,6 +17,8 @@ import { SerializeData } from './InputValidation';
 export const vaildThemes = themesData.map((e) => e.theme);
 export const validType = typesData.map((e) => e.type);
 export const validAnimations = animationsData.map((e) => e.animation);
+export const validPreset = presetData.map((e) => e.preset);
+
 export const eleData = elementsData;
 const componentsMap = { DynamicSelect: DynamicSelect };
 
@@ -36,6 +39,7 @@ function Modal({
   title,
   type = `form`,
   elements,
+  preset = '!/',
   theme = 'Singularity',
   animation = '!/',
   Id,
@@ -50,6 +54,7 @@ function Modal({
     title,
     type,
     elements,
+    preset,
     theme,
     animation,
     Id,
@@ -141,14 +146,13 @@ function Modal({
       const firstInput = modalRef.current.querySelector(
         'input, select, textarea'
       );
-      
+
       // If input exist make focus
       if (firstInput) {
         firstInput.focus();
       }
     }
   }, [visibility]); // It only runs when the modal opens/closes
-
 
   useGSAP(() => {
     if (!modalRef.current || !currentAnimation) return;

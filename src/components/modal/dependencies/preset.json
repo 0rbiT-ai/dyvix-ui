@@ -1,0 +1,31 @@
+[
+  {
+    "preset": "Register",
+    "fields": [
+      {
+        "type": "text",
+        "placeholder": ["First Name", "Last Name"],
+        "id": "Name",
+        "name": ["First Name", "Last Name"],
+        "amount": 2
+      },
+      {
+        "type": "email",
+        "placeholder": "Email Address",
+        "validation": "email",
+        "id": "email",
+        "name": "email",
+        "amount": 1
+      },
+      {
+        "type": "password",
+        "placeholder": "Password",
+        "id": "password",
+        "name": "password",
+        "amount": 1
+      }
+    ],
+    "default-animation": "fade-in",
+    "default-theme": "neon-glow"
+  }
+]

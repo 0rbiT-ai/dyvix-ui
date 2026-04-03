@@ -1,7 +1,12 @@
-import { validType, vaildThemes, validAnimations, eleData } from './modal';
+import {
+  validType,
+  vaildThemes,
+  validAnimations,
+  eleData,
+  validPreset,
+} from './modal';
+import presetData from './dependencies/preset.json';
 import { EvaluateFailure, GaurdStatus } from '../../utils/DyvixGuard';
-
-
 
 const defaultElement = {
   type: '!/',
@@ -27,6 +32,7 @@ export function SerializeData(
   title,
   type,
   elements,
+  preset,
   theme,
   animation,
   Id,
@@ -37,6 +43,7 @@ export function SerializeData(
     title,
     type,
     elements,
+    preset,
     theme,
     animation,
     Id,
@@ -44,18 +51,21 @@ export function SerializeData(
     onSubmit
   );
 
-  if(validator.status === GaurdStatus.Error)
-  {
+  if (validator.status === GaurdStatus.Error) {
     return EvaluateFailure(validator.error, validator.status);
   }
-
+  elements =
+    preset !== '!/'
+      ? presetData.find(
+          (e) => e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
+        )?.['fields'] || elements
+      : elements;
   const normalizedElements = normalizeElements(
     elements.map((ele) => ({ ...defaultElement, ...ele }))
   );
   const eleValidator = validateElements(normalizedElements);
 
-  if(eleValidator.status === GaurdStatus.Error)
-  {
+  if (eleValidator.status === GaurdStatus.Error) {
     return EvaluateFailure(eleValidator.error, eleValidator.status);
   }
 
@@ -65,6 +75,7 @@ export function ValidateInput(
   title,
   type,
   elements,
+  preset,
   theme,
   animation,
   Id,
@@ -87,13 +98,28 @@ export function ValidateInput(
     };
   }
   if (animation !== '!/' && !validAnimations.includes(animation)) {
-    return { status: GaurdStatus.Error, error: 'Please provide a vaild animation.' };
+    return {
+      status: GaurdStatus.Error,
+      error: 'Please provide a vaild animation.'
+    };
+  }
+  if (preset !== '!/' && !validPreset.includes(preset)) {
+    return {
+      status: GaurdStatus.Error,
+      error: 'Please provide a vaild preset.'
+    };
   }
   if (!vaildThemes.includes(theme)) {
-    return { status: GaurdStatus.Error, error: 'Please provide a vaild theme.' };
+    return {
+      status: GaurdStatus.Error,
+      error: 'Please provide a vaild theme.'
+    };
   }
   if (onSubmit !== null && typeof onSubmit !== 'function') {
-    return { status: GaurdStatus.Error, error: 'onSubmit should be provided as a function.' };
+    return {
+      status: GaurdStatus.Error,
+      error: 'onSubmit should be provided as a function.'
+    };
   }
 
   return { status: GaurdStatus.Success };
@@ -105,7 +131,10 @@ function validateElements(elements) {
       eleData.find((e) => e['inherited-element']?.includes(element.type));
 
     if (!supportedTypes.includes(element.type)) {
-      return { status: GaurdStatus.Error, error: 'Elements should include a valid type.' };
+      return {
+        status: GaurdStatus.Error,
+        error: 'Elements should include a valid type.'
+      };
     }
     if (currentType['requires-options']) {
       if (!element.options || element.options.length === 0) {
@@ -201,11 +230,14 @@ function checkDuplicates(elements, field) {
 
   for (const element of elements) {
     const currentFields = element[field];
-    
+
     for (const val of currentFields) {
       if (val === '!/') continue;
       if (found.has(val)) {
-        return { status: GaurdStatus.Error, error: `Element ${field} should be unique.` };
+        return {
+          status: GaurdStatus.Error,
+          error: `Element ${field} should be unique.`
+        };
       }
 
       found.add(val);

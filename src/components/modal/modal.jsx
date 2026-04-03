@@ -170,7 +170,7 @@ function Modal({
       {visibility && (
         <div ref={modalRef} className="dyvix-modal-wrapper">
           <div
-            className={serilaizedClass}
+            className={`modal ${serilaizedClass}`}
             id={Id}
             ref={modalRef}
             style={{

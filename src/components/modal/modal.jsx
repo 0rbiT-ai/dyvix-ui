@@ -266,7 +266,7 @@ function Modal({
                             handleInputChange(name, e.target.value)
                           }
                         >
-                          <option selected disabled value={null}>
+                       <option disabled value="">
                             {field.placeholder[j]}
                           </option>
                           {field.options[j].map((opt, index) => (

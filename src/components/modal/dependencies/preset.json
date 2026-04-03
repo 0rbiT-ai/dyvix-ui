@@ -25,7 +25,7 @@
         "amount": 1
       }
     ],
-    "default-animation": "fade-in",
-    "default-theme": "neon-glow"
+    "default-animation": "fade",
+    "default-theme": "Neon"
   }
 ]

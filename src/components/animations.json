@@ -63,6 +63,15 @@
     "to": { "y": 0, "opacity": 1, "filter": "blur(0px)" }
   },
   {
+    "animation": "drop",
+    "type": "in",
+    "default-duration": 0.9,
+    "ease": "back.out(1.2)",
+    "components": ["modal"],
+    "from": {  "y": -150, "opacity": 0 },
+    "to": { "y": 0, "opacity": 1 }
+  },
+  {
     "animation": "flip",
     "type": "in",
     "default-duration": 0.5,

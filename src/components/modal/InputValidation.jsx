@@ -82,6 +82,31 @@ export function ValidateInput(
   Class,
   onSubmit
 ) {
+  if (preset !== '!/') {
+    if (!validPreset.includes(preset)) {
+      return { status: GaurdStatus.Error, error: 'Please provide a valid preset.' };
+    }
+  }
+
+  if (animation !== '!/' && !validAnimations.includes(animation)) {
+    return {
+      status: GaurdStatus.Error,
+      error: 'Please provide a vaild animation.'
+    };
+  }  
+  if (!vaildThemes.includes(theme)) {
+    return {
+      status: GaurdStatus.Error,
+      error: 'Please provide a vaild theme.'
+    };
+  }
+  if (onSubmit !== null && typeof onSubmit !== 'function') {
+    return {
+      status: GaurdStatus.Error,
+      error: 'onSubmit should be provided as a function.'
+    };
+  }
+  if (preset !== '!/') return { status: GaurdStatus.Success };
   if (!title) {
     return { status: GaurdStatus.Error, error: 'Please provide a title' };
   }
@@ -95,30 +120,6 @@ export function ValidateInput(
     return {
       status: GaurdStatus.Error,
       error: 'Element should be provided as an array of objects.'
-    };
-  }
-  if (animation !== '!/' && !validAnimations.includes(animation)) {
-    return {
-      status: GaurdStatus.Error,
-      error: 'Please provide a vaild animation.'
-    };
-  }
-  if (preset !== '!/' && !validPreset.includes(preset)) {
-    return {
-      status: GaurdStatus.Error,
-      error: 'Please provide a vaild preset.'
-    };
-  }
-  if (!vaildThemes.includes(theme)) {
-    return {
-      status: GaurdStatus.Error,
-      error: 'Please provide a vaild theme.'
-    };
-  }
-  if (onSubmit !== null && typeof onSubmit !== 'function') {
-    return {
-      status: GaurdStatus.Error,
-      error: 'onSubmit should be provided as a function.'
     };
   }
 

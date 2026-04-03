@@ -123,7 +123,8 @@ function Modal({
   );
   const serilaizedClass =
     Class + ` ${currentTheme.class}` + ` ${currentType.class}`;
-  const rowOffset = elements.length / 4;
+  console.log(fields.length)
+  const rowOffset = fields.length / 4;
   const dynamicHeight =
     rowOffset > 1 ? `${30 + (rowOffset - 1) * 15}rem` : '30rem';
   const dynamicWidth =

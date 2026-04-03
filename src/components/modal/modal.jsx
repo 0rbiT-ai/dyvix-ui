@@ -127,7 +127,6 @@ function Modal({
   );
   const serilaizedClass =
     Class + ` ${currentTheme.class}` + ` ${currentType.class}`;
-  title = preset
   const rowOffset = fields.length / 4;
   const dynamicHeight =
     rowOffset > 1 ? `${30 + (rowOffset - 1) * 15}rem` : '30rem';
@@ -136,11 +135,10 @@ function Modal({
       ? `${30 + rowOffset * 10}rem`
       : '30rem';
 
-
-  if(currentPreset)
-  {
-    title = title !== "!/" ? title : currentPreset['default-title']
+  if (currentPreset) {
+    title = title !== "!/" ? title : currentPreset['default-title'];
   }
+
   React.useEffect(() => {
     fields.forEach((field) => {
       field.name.forEach((name) => {

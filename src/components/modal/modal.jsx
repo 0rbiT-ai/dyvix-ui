@@ -4,7 +4,7 @@ import DynamicSelect from '../select/SelectCompiler';
 import animationsData from '../animations.json';
 import validationData from './dependencies/validator/validators.json';
 import typesData from './dependencies/types.json';
-import presetData from './dependencies/preset.json';
+import presetData from './dependencies/presets.json';
 import './dependencies/style/elements.css';
 import './dependencies/style/themes.css';
 import * as validatorsFunctions from './dependencies/validator/validators';
@@ -36,7 +36,7 @@ const componentsMap = { DynamicSelect: DynamicSelect };
  * @param {Array<Object>} props.elements - Array of element configs
  */
 function Modal({
-  title,
+  title = '!/',
   type = `form`,
   elements,
   preset = '!/',
@@ -121,9 +121,13 @@ function Modal({
     (e) =>
       e.animation.trim().toLowerCase() === animationQuery.trim().toLowerCase()
   );
+  const currentPreset = presetData.find(
+    (e) =>
+      e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
+  );
   const serilaizedClass =
     Class + ` ${currentTheme.class}` + ` ${currentType.class}`;
-  console.log(fields.length)
+  title = preset
   const rowOffset = fields.length / 4;
   const dynamicHeight =
     rowOffset > 1 ? `${30 + (rowOffset - 1) * 15}rem` : '30rem';
@@ -132,6 +136,11 @@ function Modal({
       ? `${30 + rowOffset * 10}rem`
       : '30rem';
 
+
+  if(currentPreset)
+  {
+    title = title !== "!/" ? title : currentPreset['default-title']
+  }
   React.useEffect(() => {
     fields.forEach((field) => {
       field.name.forEach((name) => {

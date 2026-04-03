@@ -26,6 +26,7 @@
       }
     ],
     "default-animation": "fade",
-    "default-theme": "Neon"
+    "default-theme": "Neon",
+    "default-title": "Register"
   }
 ]

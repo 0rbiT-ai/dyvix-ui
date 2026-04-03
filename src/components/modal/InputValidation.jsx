@@ -5,7 +5,7 @@ import {
   eleData,
   validPreset,
 } from './modal';
-import presetData from './dependencies/preset.json';
+import presetData from './dependencies/presets.json';
 import { EvaluateFailure, GaurdStatus } from '../../utils/DyvixGuard';
 
 const defaultElement = {
@@ -107,7 +107,7 @@ export function ValidateInput(
     };
   }
   if (preset !== '!/') return { status: GaurdStatus.Success };
-  if (!title) {
+  if (title === "!/") {
     return { status: GaurdStatus.Error, error: 'Please provide a title' };
   }
   if (!validType.includes(type)) {

@@ -260,6 +260,7 @@ function Modal({
                     if (elementDef['requires-options'] && Tag === 'select') {
                       return (
                         <Tag
+                          defaultValue=""
                           key={j}
                           {...Tagprobs}
                           onChange={(e) =>

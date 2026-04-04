@@ -277,7 +277,7 @@ function Modal({
                     const fieldError = errors[name];
 
                     return (
-                      <>
+                      <div className='dyvix-field-wrapper' key={name}>
                         {elementDef['requires-options'] && Tag === 'select' ? (
                           <Tag
                             key={j}
@@ -312,7 +312,8 @@ function Modal({
                             }
                           />
                         )}
-                      </>
+                        <span className="dyvix-error-text">{fieldError}</span>
+                      </div>
                     );
                   })}
                 </div>

@@ -44,6 +44,7 @@
   margin: 0 auto;
   background: transparent;
   padding: 0.5rem 1rem;
+  box-sizing: border-box;
   transition:
     border-color 0.2s ease-in-out,
     background-color 0.2s ease-in-out;
@@ -83,6 +84,7 @@
 .dyvix-dropdown-select li {
   color: #1a1a1a;
 }
+
 .modal-select {
   height: 42px;
   color: rgba(255, 255, 255, 0.2);
@@ -146,4 +148,24 @@
 .modal-close-btn:hover {
   color: white;
   background: rgba(255, 255, 255, 0.1);
+}
+.dyvix-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  padding-bottom: 10px;
+  align-items: center;
+  min-height: 40px;
+
+}
+.dyvix-error-text {
+  position: absolute;
+  bottom: -.3rem;
+  color: #ff4d4d;
+  font-size: 0.65rem;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
 }

@@ -271,13 +271,14 @@ function Modal({
                     if (elementDef['requires-options'] && Tag === 'select') {
                       return (
                         <Tag
+                          defaultValue=""
                           key={j}
                           {...Tagprobs}
                           onChange={(e) =>
                             handleInputChange(name, e.target.value)
                           }
                         >
-                          <option selected disabled value={null}>
+                       <option disabled value="">
                             {field.placeholder[j]}
                           </option>
                           {field.options[j].map((opt, index) => (

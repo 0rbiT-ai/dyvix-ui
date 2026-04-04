@@ -150,7 +150,6 @@ function Modal({
       });
     });
   }, []);
-  console.log(errors);
 
   // Auto-focus for the first input when modal opens
   React.useEffect(() => {
@@ -280,13 +279,14 @@ function Modal({
                       <div className='dyvix-field-wrapper' key={name}>
                         {elementDef['requires-options'] && Tag === 'select' ? (
                           <Tag
+                            defaultValue=""
                             key={j}
                             {...Tagprobs}
                             onChange={(e) =>
                               handleInputChange(name, e.target.value)
                             }
                           >
-                            <option selected disabled value={null}>
+                            <option disabled value="">
                               {field.placeholder[j]}
                             </option>
                             {field.options[j].map((opt, index) => (

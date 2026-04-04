@@ -62,9 +62,9 @@
   background: transparent;
   padding: 0;
   height: auto;
-  flex: 1 1 0px;
-  min-width: 0;
-  width: 0;
+  flex: 1;
+  min-width: 120px;
+  width: 100%;
   box-sizing: border-box;
 }
 .modal-element.dyvix-select-wrapper:hover {

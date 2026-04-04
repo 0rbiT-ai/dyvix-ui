@@ -57,7 +57,3 @@ Feel free to open meaningful issues and prs. Check our [contributing guide](CONT
 
 - Add new [themes](https://github.com/younisdev/dyvix-ui/issues/14)
 - Add new [animations](https://github.com/younisdev/dyvix-ui/issues/15)
-
-## Note
-
-This project is still in early alpha expect some bugs and unfinished code.

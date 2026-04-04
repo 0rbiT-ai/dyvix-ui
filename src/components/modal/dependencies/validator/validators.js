@@ -8,7 +8,9 @@ export default function ExecuteValidator(value, validators) {
       result = func(value, ...[param].filter(Boolean));
     }
 
-    if (!result.status) return result;
+    if (result && result.status === false) {
+      return result;
+    }
   }
   return { status: true, error: null };
 }

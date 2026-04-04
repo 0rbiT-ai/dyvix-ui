@@ -49,6 +49,7 @@ function Modal({
   onClose
 }) {
   const [data, SetData] = React.useState({});
+  const [errors, SetErrors] = React.useState({});
   const [visibility, SetVisibility] = React.useState(true);
   const fields = SerializeData(
     title,
@@ -64,6 +65,7 @@ function Modal({
   const modalRef = React.useRef(null);
 
   function handleInputChange(name, value) {
+    const validation = handleValidation();
     const nextData = { ...data, [name]: value };
     SetData(nextData);
     onChange(nextData);
@@ -75,6 +77,7 @@ function Modal({
     }
   }
   function handleValidation() {
+    const newErrors = {};
     for (const field of fields) {
       if (!field.validation) continue;
 
@@ -91,17 +94,19 @@ function Modal({
 
         if (!validators) continue;
 
-        return ExecuteValidator(data[currentName], validators.validators);
+        const result = ExecuteValidator(
+          data[currentName],
+          validators.validators
+        );
+        if (result) {
+          newErrors[currentName] = result.status ? null : result.error;
+        }
       }
     }
+    SetErrors(newErrors);
   }
   function handleSubmit() {
     const validation = handleValidation();
-
-    if (!validation.status) {
-      console.log(validation.error);
-      return;
-    }
 
     onSubmit(data);
   }
@@ -268,44 +273,47 @@ function Modal({
                         Class: 'modal-element'
                       })
                     };
-                    if (elementDef['requires-options'] && Tag === 'select') {
-                      return (
-                        <Tag
-                          defaultValue=""
-                          key={j}
-                          {...Tagprobs}
-                          onChange={(e) =>
-                            handleInputChange(name, e.target.value)
-                          }
-                        >
-                       <option disabled value="">
-                            {field.placeholder[j]}
-                          </option>
-                          {field.options[j].map((opt, index) => (
-                            <option
-                              role="option"
-                              key={index}
-                              value={opt}
-                              tabIndex={index}
-                            >
-                              {opt}
-                            </option>
-                          ))}
-                        </Tag>
-                      );
-                    }
+                    const fieldError = errors[name];
 
                     return (
-                      <Tag
-                        key={j}
-                        {...Tagprobs}
-                        onChange={(e) =>
-                          handleInputChange(
-                            name,
-                            elementDef['is_custom'] ? e : e.target.value
-                          )
-                        }
-                      />
+                      <div className='dyvix-field-wrapper' key={name}>
+                        {elementDef['requires-options'] && Tag === 'select' ? (
+                          <Tag
+                            defaultValue=""
+                            key={j}
+                            {...Tagprobs}
+                            onChange={(e) =>
+                              handleInputChange(name, e.target.value)
+                            }
+                          >
+                            <option disabled value="">
+                              {field.placeholder[j]}
+                            </option>
+                            {field.options[j].map((opt, index) => (
+                              <option
+                                role="option"
+                                key={index}
+                                value={opt}
+                                tabIndex={index}
+                              >
+                                {opt}
+                              </option>
+                            ))}
+                          </Tag>
+                        ) : (
+                          <Tag
+                            key={j}
+                            {...Tagprobs}
+                            onChange={(e) =>
+                              handleInputChange(
+                                name,
+                                elementDef['is_custom'] ? e : e.target.value
+                              )
+                            }
+                          />
+                        )}
+                        <span className="dyvix-error-text">{fieldError}</span>
+                      </div>
                     );
                   })}
                 </div>

@@ -1,5 +1,4 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 hero:
@@ -19,15 +18,15 @@ hero:
 
 features:
   - title: Config-Driven Themes
-    details: Switch between Singularity, Industrial, Ember, Frost, Blade, Neon and Aurora themes with a single prop. No CSS required.
+    details: Switch between Singularity, Industrial, Ember, Frost, Blade, Neon, and Aurora themes with a single prop. No CSS required.
   - title: GSAP Animations Baked In
-    details: Every component ships with smooth enterance and hover animations. Choose from bubble, fade, zoom, unfold, glitch, pulse and more.
-  - title: JSON-BASED Architecture
+    details: Every component ships with smooth entrance and hover animations. Choose from bubble, fade, zoom, unfold, glitch, pulse and more.
+  - title: JSON-Based Architecture
     details: Themes, Animations, Validation presets, and elements are all controlled via JSON config files. Easy to extend, easy to contribute.
   - title: Built-in Validation
-    details: Config-driven validation presets for email, password and more. Just pass a validation prop and you're done.
+    details: Config-driven validation presets for email, password, and more. Just pass a validation prop and you're done.
   - title: Zero Boilerplate
-    details: A full animated, validated form modal in one component and a few lines of config with 7+ theme and counting.
+    details: A fully animated, validated form modal in one component and a few lines of config with 9+ themes and counting.
   - title: Open Source
     details: MIT licensed. Active contributor community with good first issues always open.
 ---

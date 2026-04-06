@@ -28,12 +28,12 @@ The modal component is a core Dyvix UI component. It's a config driven, animated
       - : `string | string[]`. The text displayed when the input is empty. If the amount is greater than 1 this must be provided as an array of strings with length matching that of the amount.
     - `validation`
       - : `string | string[]`. Premade validation preset. If the amount is greater than 1 this must be provided as an array of strings with length matching that of the amount.
-  - `onSubmit`
-    - : `function`. A callback function triggered upon form submission. It receives a single `data` object containing all input names along with their value.
-  - `onChange`
-    - : `function`. A callback function triggered every time an input value changes. It receives a single `data` object containing all input names along with their value.
-  - `onClose`
-    - : `function`. A callback function triggered upon form closure. Available only only when the modal `type` is set to `form`.
+- `onSubmit`
+  - : `function`. A callback function triggered upon form submission. It receives a single `data` object containing all input names along with their value.
+- `onChange`
+  - : `function`. A callback function triggered every time an input value changes. It receives a single `data` object containing all input names along with their value.
+- `onClose`
+  - : `function`. A callback function triggered upon form closure. Available only only when the modal `type` is set to `form`.
 
 ## Example
 

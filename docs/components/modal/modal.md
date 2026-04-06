@@ -16,6 +16,8 @@ The modal component is a core Dyvix UI component. It's a config driven, animated
   - : `string`. Controls the design and the feel of the modal.
 - `animation`
   - : `string`. Controls the entrance animation of the modal.
+- `preset`
+  - : `string`. A convenience attribute that populates the modal with predefined configuration. Using presets overrides elements attribute with modal common-uses.
 - `elements`
   - : An array of objects that defines the internal fields of the modal. Each object supports the following attributes:
     - `amount`
@@ -28,22 +30,34 @@ The modal component is a core Dyvix UI component. It's a config driven, animated
       - : `string | string[]`. The text displayed when the input is empty. If the amount is greater than 1 this must be provided as an array of strings with length matching that of the amount.
     - `validation`
       - : `string | string[]`. Premade validation preset. If the amount is greater than 1 this must be provided as an array of strings with length matching that of the amount.
-  - `onSubmit`
-    - : `function`. A callback function triggered upon form submission. It receives a single `data` object containing all input names along with their value.
-  - `onChange`
-    - : `function`. A callback function triggered every time an input value changes. It receives a single `data` object containing all input names along with their value.
-  - `onClose`
-    - : `function`. A callback function triggered upon form closure. Available only only when the modal `type` is set to `form`.
+- `onSubmit`
+  - : `function`. A callback function triggered upon form submission. It receives a single `data` object containing all input names along with their value.
+- `onChange`
+  - : `function`. A callback function triggered every time an input value changes. It receives a single `data` object containing all input names along with their value.
+- `onClose`
+  - : `function`. A callback function triggered upon form closure. Available only when the modal `type` is set to `form`.
+
+## Understanding Dyvix Constants
+
+Dyvix constants are a built-in configuration engine designed to eliminate "magic strings" and provide a type-safe environment for dyvix users. By using these exported constants you benefit from IDE autocompletion preventing common typos that could break your UI. The modal component currently supports 5 constants groups:
+
+- `DYVIX_MODAL_THEME`
+  - : Used in the theme attribute e.g. `theme={DYVIX_MODAL_THEME.SINGULARITY}`.
+- `DYVIX_GLOBAL_ANIMATION`
+  - : Used in the animation attribute e.g. `animation={DYVIX_GLOBAL_ANIMATION.AURORA}`.
+- `DYVIX_MODAL_TYPE`
+  - : Used in the modal type e.g. `type={DYVIX_MODAL_TYPE.AUTH}`
+- `DYVIX_MODAL_VALIDATION_PRESET`
+  - : Used in the modal elements validation e.g. `validation: [DYVIX_MODAL_VALIDATION_PRESET.EMAIL]`
+- `DYVIX_MODAL_ELEMENT`
+  - : Used in the modal elements type e.g. `type: DYVIX_MODAL_ELEMENT.TEXT`
 
 ## Example
 
+### Without Dyvix Constants
+
 ```jsx
-import {
-  Modal,
-  DYVIX_MODAL_THEME,
-  DYVIX_MODAL_VALIDATION_PRESET,
-  DYVIX_GLOBAL_ANIMATION
-} from 'dyvix-ui';
+import { Modal } from 'dyvix-ui';
 
 function ModalExample() {
   return (
@@ -51,8 +65,9 @@ function ModalExample() {
       title="Register"
       Id="register-modal"
       Class="modal"
-      theme={DYVIX_MODAL_THEME.SINGULARITY}
-      animation={DYVIX_GLOBAL_ANIMATION.GLITCH}
+      theme="Singularity"
+      animation="glitch"
+      type="form"
       elements={[
         {
           type: 'text',
@@ -65,7 +80,7 @@ function ModalExample() {
         {
           type: 'email',
           placeholder: 'Email',
-          validation: [DYVIX_MODAL_VALIDATION_PRESET.EMAIL],
+          validation: "email",
           id: 'email',
           name: 'email',
           className: 'ex-text',
@@ -73,6 +88,62 @@ function ModalExample() {
         },
         {
           type: 'password',
+          placeholder: 'Password',
+          validation: "password",
+          id: 'password',
+          name: 'password',
+          className: 'ex-text',
+          amount: 1
+        }
+      ]}
+      onSubmit={(data) => console.log(data)}
+      onChange={(data) => console.log(data)}
+    />
+  );
+}
+```
+
+### Using Dyvix Constants
+
+```jsx
+import {
+  Modal,
+  DYVIX_MODAL_THEME,
+  DYVIX_MODAL_VALIDATION_PRESET,
+  DYVIX_GLOBAL_ANIMATION,
+  DYVIX_MODAL_ELEMENT,
+  DYVIX_MODAL_TYPE
+} from 'dyvix-ui';
+
+function ModalExample() {
+  return (
+    <Modal
+      title="Register"
+      Id="register-modal"
+      Class="modal"
+      theme={DYVIX_MODAL_THEME.SINGULARITY}
+      animation={DYVIX_GLOBAL_ANIMATION.GLITCH}
+      type={DYVIX_MODAL_TYPE.AUTH}
+      elements={[
+        {
+          type: DYVIX_MODAL_ELEMENT.TEXT,
+          placeholder: ['First Name', 'Last Name'],
+          id: 'name',
+          name: ['firstName', 'lastName'],
+          className: 'ex-text',
+          amount: 2
+        },
+        {
+          type: DYVIX_MODAL_ELEMENT.EMAIL,
+          placeholder: 'Email',
+          validation: [DYVIX_MODAL_VALIDATION_PRESET.EMAIL],
+          id: 'email',
+          name: 'email',
+          className: 'ex-text',
+          amount: 1
+        },
+        {
+          type: DYVIX_MODAL_ELEMENT.PASSWORD,
           placeholder: 'Password',
           validation: [DYVIX_MODAL_VALIDATION_PRESET.PASSWORD],
           id: 'password',

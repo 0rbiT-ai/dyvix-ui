@@ -52,5 +52,11 @@
     "class": "dyvix-modal-ocean",
     "default-animation": "flip",
     "radiused": false
+  },
+  {
+    "theme": "Forest",
+    "class": "dyvix-modal-forest",
+    "default-animation": "glide",
+    "radiused": false
   }
 ]

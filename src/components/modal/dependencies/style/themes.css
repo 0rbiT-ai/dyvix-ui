@@ -230,3 +230,21 @@
     0 0 70px rgba(0, 100, 255, 0.25),
     inset 0 0 40px rgba(0, 150, 255, 0.08);
 }
+.dyvix-modal-forest
+{
+  background: #1F3B2C ;
+  background: radial-gradient(circle, rgba(31, 59, 44, 1) 14%, rgba(31, 59, 44, 1) 24%, rgba(75, 58, 42, 1) 71%);
+  border: 3px double #86A86B;
+  border-radius: 5rem;
+  box-shadow: inset 0px 0px 30px 10px rgba(163, 236, 101, 0.3);
+  -webkit-box-shadow: inset 0px 0px 30px 10px rgba(163, 236, 101, 0.3);
+  -moz-box-shadow: inset 0px 0px 30px 10px rgba(163, 236, 101, 0.3);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+.dyvix-modal-forest:hover
+{
+  transform: skewX(-5deg) scale(1.05);
+  box-shadow: inset 0px 0px 50px 15px rgba(163, 236, 101, 0.5);
+  -webkit-box-shadow: inset 0px 0px 50px 15px rgba(163, 236, 101, 0.5);
+  -moz-box-shadow: inset 0px 0px 50px 15px rgba(163, 236, 101, 0.5);
+}

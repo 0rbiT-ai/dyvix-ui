@@ -22,11 +22,35 @@
         "placeholder": "Password",
         "id": "password",
         "name": "password",
-        "amount": 1
+        "amount": 1,
+        "validation": "password"
       }
     ],
     "default-animation": "fade",
     "default-theme": "Neon",
     "default-title": "Register"
+  },
+  {
+    "preset": "Login",
+    "fields": [
+      {
+        "type": "text",
+        "placeholder": "Username",
+        "id": "Name",
+        "name": "Username",
+        "amount": 1
+      },
+      {
+        "type": "password",
+        "placeholder": "Password",
+        "id": "password",
+        "name": "password",
+        "amount": 1,
+        "validation": "password"
+      }
+    ],
+    "default-animation": "fade",
+    "default-theme": "Neon",
+    "default-title": "Login"
   }
 ]

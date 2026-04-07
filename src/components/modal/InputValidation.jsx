@@ -103,7 +103,7 @@ export function ValidateInput(
       error: 'Please provide a vaild theme.'
     };
   }
-  if (onSubmit !== null && typeof onSubmit !== 'function') {
+  if (onSubmit !== undefined && typeof onSubmit !== 'function') {
     return {
       status: GaurdStatus.Error,
       error: 'onSubmit should be provided as a function.'

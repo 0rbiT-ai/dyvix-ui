@@ -63,9 +63,10 @@
   padding: 0;
   height: auto;
   flex: 1;
-  min-width: 120px;
   width: 100%;
   box-sizing: border-box;
+  max-width: 15rem;
+  min-width: 0;
 }
 .modal-element.dyvix-select-wrapper:hover {
   border-color: transparent;
@@ -95,6 +96,11 @@
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1.2rem;
+  flex: 1;
+  max-width: 15rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 .modal-select option {
   border-radius: 20px;

@@ -215,7 +215,7 @@ function Modal({
                 : elementDef.tag;
 
               return (
-                <div className="grouped-elements" key={field.id || i}>
+                <div className="grouped-elements" key={field.name || i}>
                   {Array.from({ length: field.amount }, (_, j) => {
                     const name = field.name[j];
                     const id = field.id[j];

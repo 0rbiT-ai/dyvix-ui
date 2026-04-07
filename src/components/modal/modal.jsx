@@ -108,7 +108,9 @@ function Modal({
   function handleSubmit() {
     const validation = handleValidation();
 
-    onSubmit(data);
+    if (typeof onSubmit === 'function') {
+      onSubmit(data);
+    }
   }
 
   if (fields === null) {

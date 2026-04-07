@@ -20,3 +20,8 @@ export function EvaluateFailure(message = '', status) {
       console.log(formatedmsg);
   }
 }
+
+export function allowsNull(value)
+{
+  return value !== null;
+}

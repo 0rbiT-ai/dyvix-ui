@@ -6,7 +6,7 @@ import {
   validPreset
 } from './modal';
 import presetData from './dependencies/presets.json';
-import { EvaluateFailure, GaurdStatus } from '../../utils/DyvixGuard';
+import { EvaluateFailure, GaurdStatus, allowsNull } from '../../utils/DyvixGuard';
 
 const defaultElement = {
   type: '!/',
@@ -91,7 +91,7 @@ export function ValidateInput(
     }
   }
 
-  if (animation !== '!/' && !validAnimations.includes(animation)) {
+  if (animation !== '!/' && !validAnimations.includes(animation) && allowsNull(animation)) {
     return {
       status: GaurdStatus.Error,
       error: 'Please provide a vaild animation.'
@@ -103,7 +103,7 @@ export function ValidateInput(
       error: 'Please provide a vaild theme.'
     };
   }
-  if (onSubmit !== null && typeof onSubmit !== 'function') {
+  if (onSubmit !== undefined && typeof onSubmit !== 'function') {
     return {
       status: GaurdStatus.Error,
       error: 'onSubmit should be provided as a function.'

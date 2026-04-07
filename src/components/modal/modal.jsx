@@ -124,10 +124,10 @@ function Modal({
   );
   const animationQuery =
     animation === '!/' ? currentTheme['default-animation'] : animation;
-  const currentAnimation = animationsData.find(
+  const currentAnimation = animation ? animationsData.find(
     (e) =>
       e.animation.trim().toLowerCase() === animationQuery.trim().toLowerCase()
-  );
+  ) : null;
   const currentPreset = presetData.find(
     (e) => e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
   );
@@ -217,7 +217,7 @@ function Modal({
                 : elementDef.tag;
 
               return (
-                <div className="grouped-elements" key={field.id || i}>
+                <div className="grouped-elements" key={field.name || i}>
                   {Array.from({ length: field.amount }, (_, j) => {
                     const name = field.name[j];
                     const id = field.id[j];

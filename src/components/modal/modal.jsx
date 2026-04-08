@@ -68,7 +68,9 @@ function Modal({
     const validation = handleValidation();
     const nextData = { ...data, [name]: value };
     SetData(nextData);
-    onChange(nextData);
+    if (typeof onChange === 'function') {
+      onChange(nextData);
+    }
   }
   function handleModalClose() {
     SetVisibility(false);

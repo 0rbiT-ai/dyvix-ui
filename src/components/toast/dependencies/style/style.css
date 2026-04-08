@@ -1,0 +1,31 @@
+.dyvix-toast-container
+{
+    display: flex;
+    position: fixed;
+    background-color: red !important;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1000;
+}
+.dyvix-top-right
+{
+
+    top: 1rem;
+    right: 1rem;
+}
+.dyvix-top-left
+{
+    top: 1rem;
+    left: 1rem;
+}
+.dyvix-bottom-right
+{
+
+    bottom: 1rem;
+    right: 1rem;
+}
+.dyvix-bottom-left
+{
+    bottom: 1rem;
+    left: 1rem;
+}

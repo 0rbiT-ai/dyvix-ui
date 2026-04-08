@@ -1,8 +1,8 @@
 const listeners = [];
 
 const dyvixToast = {
-  success: (message) => emit({ message: message, type: "Success" }),
-  error: (message) => emit({ message: message, type: "Error" }),
+  success: (message) => emit({ message: message, type: 'Success' }),
+  error: (message) => emit({ message: message, type: 'Error' })
 };
 
 function emit(toast) {

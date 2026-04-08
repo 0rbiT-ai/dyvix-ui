@@ -1,18 +1,18 @@
 [
-    {
-        "position": "top-left",
-        "class": "dyvix-top-left"
-    },
-    {
-        "position": "top-right",
-        "class": "dyvix-top-right"
-    },
-    {
-        "position": "bottom-left",
-        "class": "dyvix-bottom-left"
-    },
-    {
-        "position": "bottom-right",
-        "class": "dyvix-bottom-right"
-    }
+  {
+    "position": "top-left",
+    "class": "dyvix-top-left"
+  },
+  {
+    "position": "top-right",
+    "class": "dyvix-top-right"
+  },
+  {
+    "position": "bottom-left",
+    "class": "dyvix-bottom-left"
+  },
+  {
+    "position": "bottom-right",
+    "class": "dyvix-bottom-right"
+  }
 ]

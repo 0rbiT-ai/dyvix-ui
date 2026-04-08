@@ -124,10 +124,13 @@ function Modal({
   );
   const animationQuery =
     animation === '!/' ? currentTheme['default-animation'] : animation;
-  const currentAnimation = animation ? animationsData.find(
-    (e) =>
-      e.animation.trim().toLowerCase() === animationQuery.trim().toLowerCase()
-  ) : null;
+  const currentAnimation = animation
+    ? animationsData.find(
+        (e) =>
+          e.animation.trim().toLowerCase() ===
+          animationQuery.trim().toLowerCase()
+      )
+    : null;
   const currentPreset = presetData.find(
     (e) => e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
   );
@@ -278,7 +281,7 @@ function Modal({
                     const fieldError = errors[name];
 
                     return (
-                      <div className='dyvix-field-wrapper' key={name}>
+                      <div className="dyvix-field-wrapper" key={name}>
                         {elementDef['requires-options'] && Tag === 'select' ? (
                           <Tag
                             defaultValue=""

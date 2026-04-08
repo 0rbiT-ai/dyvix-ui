@@ -163,11 +163,10 @@
   padding-bottom: 10px;
   align-items: center;
   min-height: 40px;
-
 }
 .dyvix-error-text {
   position: absolute;
-  bottom: -.3rem;
+  bottom: -0.3rem;
   color: #ff4d4d;
   font-size: 0.65rem;
   font-weight: 600;

@@ -5,7 +5,7 @@ import React from 'react';
 import { subscribe } from './bus';
 import { DyvixToastItem } from './toast';
 
-function DyvixToastContainer({position, segments, duration=100})
+function DyvixToastContainer({position, segments, duration=3000, animation="fade"})
 {
     const [toasts, setToasts] = React.useState([])
     const currentPosition = positionData.find(
@@ -27,10 +27,12 @@ function DyvixToastContainer({position, segments, duration=100})
 
   return (
     <div className={`dyvix-toast-container ${currentPosition.class}`}>
-        {toasts.map((toast)=> {
+        {toasts.map((toast, i)=> {
             const currentType = TypesData.find((e) => e.type.trim().toLowerCase() === toast.type.trim().toLowerCase()) 
             const currentclass = `dyvix-toast ${currentType.class}`;
-            return <DyvixToastItem message={toast.message} onClose={()=> console.log("ggg")} Class={currentclass}/>
+            return <DyvixToastItem key={i} message={toast.message} onClose={()=> console.log("ggg")} Class={currentclass}
+            duration={duration} animation={animation}
+            />
         })
         }
     </div>

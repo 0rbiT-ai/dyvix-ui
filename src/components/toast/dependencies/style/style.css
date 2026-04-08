@@ -1,31 +1,47 @@
 .dyvix-toast-container
 {
-    display: flex;
-    position: fixed;
-    background-color: red !important;
-    width: 10rem;
-    height: 10rem;
-    z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  position: fixed;
+  width: auto;
+  z-index: 1000;
+  height: auto;
 }
+.dyvix-toast
+{
+  width: 20rem;
+  min-height: 4.5rem;
+  max-height: fit-content;
+  height: auto;
+  background-color: #ff3366;
+  border: 2px saddlebrown solid;
+}
+
+
+
+
+
+/* move to positions.css ? */
 .dyvix-top-right
 {
 
-    top: 1rem;
-    right: 1rem;
+  top: 1rem;
+  right: 1rem;
 }
 .dyvix-top-left
 {
-    top: 1rem;
-    left: 1rem;
+  top: 1rem;
+  left: 1rem;
 }
 .dyvix-bottom-right
 {
 
-    bottom: 1rem;
-    right: 1rem;
+  bottom: 1rem;
+  right: 1rem;
 }
 .dyvix-bottom-left
 {
-    bottom: 1rem;
-    left: 1rem;
+  bottom: 1rem;
+  left: 1rem;
 }

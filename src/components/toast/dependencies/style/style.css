@@ -21,7 +21,14 @@
 
 
 
-
+.dyvix-toast-error
+{
+  background-color: #ff3366;
+}
+.dyvix-toast-success
+{
+  background-color: green;
+}
 /* move to positions.css ? */
 .dyvix-top-right
 {

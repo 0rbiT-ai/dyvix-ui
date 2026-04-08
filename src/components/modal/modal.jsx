@@ -302,6 +302,19 @@ function Modal({
                               </option>
                             ))}
                           </Tag>
+                        ) : field.type === 'checkbox' ? (
+                          <label key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                            <Tag
+                              {...Tagprobs}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  name,
+                                  elementDef['is_custom'] ? e : e.target.checked
+                                )
+                              }
+                            />
+                            {field.placeholder?.[j]}
+                          </label>
                         ) : (
                           <Tag
                             key={j}

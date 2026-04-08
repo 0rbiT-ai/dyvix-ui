@@ -30,7 +30,6 @@ export function DyvixToastItem({
         onComplete: () => SetStatus('active')
       });
     } else if (status === 'leaving') {
-      return
       tl.fromTo(toastRef.current, currentAnimation.to, {
         ...currentAnimation.from,
         duration: currentAnimation['default-duration'],

@@ -126,22 +126,29 @@ function Modal({
   );
   const animationQuery =
     animation === '!/' ? currentTheme['default-animation'] : animation;
-  const currentAnimation = animation ? animationsData.find(
-    (e) =>
-      e.animation.trim().toLowerCase() === animationQuery.trim().toLowerCase()
-  ) : null;
+  const currentAnimation = animation
+    ? animationsData.find(
+        (e) =>
+          e.animation.trim().toLowerCase() ===
+          animationQuery.trim().toLowerCase()
+      )
+    : null;
   const currentPreset = presetData.find(
     (e) => e.preset.trim().toLowerCase() === preset.trim().toLowerCase()
   );
   const serilaizedClass =
     Class + ` ${currentTheme.class}` + ` ${currentType.class}`;
-  const rowOffset = fields.length / 4;
-  const dynamicHeight =
-    rowOffset > 1 ? `${30 + (rowOffset - 1) * 15}rem` : '30rem';
-  const dynamicWidth =
-    currentTheme.radiused || rowOffset > 1
-      ? `${30 + rowOffset * 10}rem`
-      : '30rem';
+  const heightMap = { 1: '23rem', 2: '25rem', 3: '26rem', 4: '30rem', 5: '34rem', 6: '40rem', 7: '43rem', 8: '48rem', 9: '53rem' };
+  const idealSize = heightMap[fields.length] || '26rem';
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const dynamicHeight = isMobile ? `min(${idealSize}, 95vh)` : idealSize;
+  const dynamicWidth = `min(${idealSize}, 95vw, 95vh)`;
+  
+  // unused 
+  const isCentered = fields.length <= 5;
+  const dynamicMargin = isCentered 
+  ? "auto auto"
+  : "2rem auto";
 
   if (currentPreset) {
     title = title !== '!/' ? title : currentPreset['default-title'];
@@ -191,7 +198,7 @@ function Modal({
             style={{
               height: dynamicHeight,
               width: dynamicWidth,
-              position: 'relative'
+              position: 'relative',
             }}
           >
             {currentType.closable && (
@@ -280,7 +287,7 @@ function Modal({
                     const fieldError = errors[name];
 
                     return (
-                      <div className='dyvix-field-wrapper' key={name}>
+                      <div className="dyvix-field-wrapper" key={name}>
                         {elementDef['requires-options'] && Tag === 'select' ? (
                           <Tag
                             defaultValue=""

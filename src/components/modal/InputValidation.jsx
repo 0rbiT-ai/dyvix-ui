@@ -6,7 +6,11 @@ import {
   validPreset
 } from './modal';
 import presetData from './dependencies/presets.json';
-import { EvaluateFailure, GaurdStatus, allowsNull } from '../../utils/DyvixGuard';
+import {
+  EvaluateFailure,
+  GaurdStatus,
+  allowsNull
+} from '../../utils/DyvixGuard';
 
 const defaultElement = {
   type: '!/',
@@ -91,7 +95,11 @@ export function ValidateInput(
     }
   }
 
-  if (animation !== '!/' && !validAnimations.includes(animation) && allowsNull(animation)) {
+  if (
+    animation !== '!/' &&
+    !validAnimations.includes(animation) &&
+    allowsNull(animation)
+  ) {
     return {
       status: GaurdStatus.Error,
       error: 'Please provide a vaild animation.'

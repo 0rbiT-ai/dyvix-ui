@@ -86,7 +86,7 @@
     "default-duration": 1.2,
     "ease": "back.out(1.7)",
     "components": ["modal"],
-    "from": { "rotationX": -10, "opacity": 0, "scale": 0.9, "y":30 },
-    "to": { "rotationX": 0, "opacity": 1, "scale": 1, "y":0 }
+    "from": { "rotationX": -10, "opacity": 0, "scale": 0.9, "y": 30 },
+    "to": { "rotationX": 0, "opacity": 1, "scale": 1, "y": 0 }
   }
 ]

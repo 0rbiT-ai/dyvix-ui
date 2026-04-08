@@ -110,7 +110,9 @@
 .modal-btn {
   width: 10rem;
   height: 2.8rem;
-  margin: 2rem auto;
+  margin: 0 auto;
+  margin-top: auto;
+  margin-bottom: 2rem;
   border: 1px solid black;
   border-radius: 3rem;
   background-color: #0ea5e9;

@@ -80,7 +80,7 @@ function ModalExample() {
         {
           type: 'email',
           placeholder: 'Email',
-          validation: "email",
+          validation: 'email',
           id: 'email',
           name: 'email',
           className: 'ex-text',
@@ -89,7 +89,7 @@ function ModalExample() {
         {
           type: 'password',
           placeholder: 'Password',
-          validation: "password",
+          validation: 'password',
           id: 'password',
           name: 'password',
           className: 'ex-text',

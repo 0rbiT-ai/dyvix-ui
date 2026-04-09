@@ -1,0 +1,10 @@
+[
+  {
+    "type": "Error",
+    "class": "dyvix-toast-error"
+  },
+  {
+    "type": "Success",
+    "class": "dyvix-toast-success"
+  }
+]

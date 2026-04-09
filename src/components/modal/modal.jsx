@@ -305,7 +305,7 @@ function Modal({
                             ))}
                           </Tag>
                         ) : field.type === 'checkbox' ? (
-                          <label key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                          <label key={j} className="modal-checkbox-label">
                             <Tag
                               {...Tagprobs}
                               onChange={(e) =>
